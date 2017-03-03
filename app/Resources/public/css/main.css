@@ -1,0 +1,81 @@
+body {
+    padding-top: 70px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: rgb(135, 135, 135);
+    background-color: rgb(255, 255, 255);
+    /*background-image: url({% image '@kisRegBundle/Resources/public/images/bg2.jpg' %}{{ asset_url }}{% endimage %});
+    background-position: center top;
+    background-attachment: fixed;*/
+}
+#mainLink a {
+    text-decoration: none;
+}
+#mainLink a:hover {
+    text-decoration: none;
+}
+nav {
+    opacity: 0.95;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+nav.fade30 {
+    opacity: 0.30;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+nav:hover, nav.fade30:hover {
+    opacity: 1;
+}
+#footer {
+    margin-top: 3px;
+    padding-top: 3px;
+    /*border-top: 1px solid rgb(218, 218, 218);*/
+    text-align: right;
+    font-size: small;
+    color: rgb(168, 168, 168);
+    clear: both;
+}
+img.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.informacje-o-dodaniu {
+    margin-top: 3px;
+    padding-top: 3px;
+    font-size: small;
+    color: rgb(168, 168, 168);
+}
+.krotkiOpis{
+    color: rgb(30, 34, 34);
+    font-style: italic;
+}
+#mainContent {
+    text-align: justify;
+    padding: 30px;
+}
+#mainContentWrapper {
+    border-style: none solid;
+    border-color: rgb(224, 224, 224);
+    border-width: 1px;
+    background-color: rgba(255,255,255, 0.6);
+}
+.ytlikeplayer-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+.ytlikeplayer-wrapper iframe,
+.ytlikeplayer-wrapper object,
+.ytlikeplayer-wrapper embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

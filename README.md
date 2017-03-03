@@ -1,2 +1,4 @@
-# kisReg
-Mechanizm rejestracji na zajęcia w czasie imprez
+kisReg
+=============
+
+Rejestraja na imprezy

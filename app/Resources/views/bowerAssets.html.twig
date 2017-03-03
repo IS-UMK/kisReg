@@ -1,0 +1,102 @@
+{% block bowerAssets %}{% spaceless %}
+    {# jQuery #}
+    {% javascripts
+        '../web/assets/vendor/jquery/dist/jquery.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# jQuery+UI #}
+    {% javascripts
+        '../web/assets/vendor/jquery-ui/jquery-ui.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/jquery-ui/themes/ui-lightness/jquery-ui.min.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {# Font Awsome #}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/font-awesome/css/*.min.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {# Bootstrap #}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/bootstrap/dist/css/*.min.css'
+        '../web/assets/vendor/bootstrap-datepicker/dist/css/*3.min.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% javascripts
+        '../web/assets/vendor/bootstrap/dist/js/*.min.js'
+        '../web/assets/vendor/bootstrap-datepicker/dist/js/*.min.js'
+        '../web/assets/vendor/bootstrap-datepicker/dist/locales/*pl.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {# Normalizer #}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/normalize.css/normalize.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {# Woolmark #}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/wookmark/css/main.css'
+        '../web/assets/vendor/magnific-popup/dist/magnific-popup.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% javascripts
+        '../web/assets/vendor/wookmark/wookmark.min.js'
+        '../web/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js'
+        '../web/assets/vendor/magnific-popup/dist/jquery.magnific-popup.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {# TimeLiner #}
+    {% stylesheets filter='cssrewrite'
+        '../web/assets/vendor/jquery-timeliner/src/css/jquery-timeliner.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% javascripts
+        '../web/assets/vendor/jquery-timeliner/src/js/jquery-timeliner.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {# TOC #}
+    {% javascripts
+        '../web/assets/vendor/toc/dist/toc.min.js'
+        '../web/assets/vendor/smooth-scroller/dist/smooth-scroller.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# jsPlumb #}
+    {% javascripts
+        '../web/assets/vendor/jsplumb/dist/js/jsPlumb-2.2.8-min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    {# jQuery Scroll #}
+    {% javascripts
+        '../web/assets/vendor/jquery-mousewheel/jquery.mousewheel.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# HammerJS for multitooth #}
+    {% javascripts
+        '../web/assets/vendor/hammerjs/hammer.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endspaceless %}{% endblock %}

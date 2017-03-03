@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Grupas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Opiekun</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Uwagi</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grupa in grupas %}
+            <tr>
+                <td><a href="{{ path('admin_grupa_show', { 'id': grupa.id }) }}">{{ grupa.id }}</a></td>
+                <td>{{ grupa.opiekun }}</td>
+                <td>{{ grupa.email }}</td>
+                <td>{{ grupa.telefon }}</td>
+                <td>{{ grupa.uwagi }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_grupa_show', { 'id': grupa.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_grupa_edit', { 'id': grupa.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_grupa_new') }}">Create a new grupa</a>
+        </li>
+    </ul>
+{% endblock %}

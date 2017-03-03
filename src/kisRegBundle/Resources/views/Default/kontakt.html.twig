@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- <div style="background-color: #f3f3f3; margin: 10px 0px;padding: 20px 0px; padding: 7px;"> -->
+        {% if msg is defined and msg is not empty  %}
+            <h2>{{msg}}</h2>
+        {% else %}
+            <h2>Napisz do Nas!</h2>
+        {% endif %}
+        {{form(form)}}
+    <!-- </div> -->
+    <hr />
+    <div class="row" style="font-size: large;">
+        <div class="col-xs-12">
+            <div style="text-align: center; padding: 10px;">
+                <div style="width:100%; display:inline-block;" class="label label-default">
+                    <h2>{{kontakt_0|raw}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div style="text-align: center; padding: 10px;">
+                <div style="width:100%; display:inline-block; color: #373737; background-color: rgb(199, 199, 199);" class="label label-default">
+                    <h3 style="font-size: large;">{{kontakt_1|raw}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div style="text-align: center; padding: 10px;">
+                <div style="width:100%; display:inline-block; color: #373737; background-color: rgb(199, 199, 199);" class="label label-default">
+                    <h3 style="font-size: large;">{{kontakt_2|raw}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div style="text-align: center; padding: 10px;">
+                <div style="width:100%; display:inline-block; color: #373737; background-color: rgb(199, 199, 199);" class="label label-default">
+                    <h3 style="font-size: large;">{{kontakt_3|raw}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div style="text-align: center; padding: 10px;">
+                <div style="width:100%; display:inline-block; color: #373737; background-color: rgb(199, 199, 199);" class="label label-default">
+                    <h3 style="font-size: large;">{{kontakt_4|raw}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <h2>Miejsce akcji</h2>
+    <div class="row" style="font-size: large;">
+        <div class="col-xs-12 col-md-8 col-lg-9">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d756.0139478558519!2d18.602730760922803!3d53.01696175622148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470334fcab77f73f%3A0x34efc318d4d8c9e4!2sUniwersytet+Miko%C5%82aja+Kopernika+Wydzia%C5%82+Fizyki+Astronomii+i+Informatyki+Stosowanej!5e0!3m2!1spl!2spl!4v1488472208481" height="300" frameborder="0" style="border:0; width:100%; max-width:100%; height: 300px;" allowfullscreen></iframe>
+        </div>
+        <div class="col-xs-12 col-md-4 col-lg-3">
+            <address>
+                <b>Wydział Fizyki, Astronomii I Informatyki Stosowanej UMK</b><br/>
+            	ul. Grudziądzka 5/7<br/>
+            	87–100 Toruń
+            </address>
+        </div>
+            <div class="col-xs-12 col-md-8 col-lg-9">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9583.515433082926!2d18.548269268476915!3d53.09441057992701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47033165a0c0314d%3A0xbb14036d8436d6fe!2sCentrum+Astronomii+UMK%2C+Katedra+Astronomii+i+Astrofizyki!5e0!3m2!1spl!2spl!4v1488472504042" height="300" frameborder="0" style="border:0; width:100%; max-width:100%; height: 300px;" allowfullscreen></iframe>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-3">
+                <address>
+                    <b>Centrum Astronomi</b><br/>
+                    Piwnice k. Torunia<br/>
+                    87-148 Łysomice
+                </address>
+            </div>
+    </div>
+{% endblock %}

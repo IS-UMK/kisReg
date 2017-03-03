@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Zajecias list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Poczatek</th>
+                <th>Koniec</th>
+                <th>Limitmiejsc</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for zajecium in zajecias %}
+            <tr>
+                <td><a href="{{ path('admin_zajecia_show', { 'id': zajecium.id }) }}">{{ zajecium.id }}</a></td>
+                <td>{{ zajecium.nazwa }}</td>
+                <td>{{ zajecium.opis }}</td>
+                <td>{% if zajecium.poczatek %}{{ zajecium.poczatek|date('H:i:s') }}{% endif %}</td>
+                <td>{% if zajecium.koniec %}{{ zajecium.koniec|date('H:i:s') }}{% endif %}</td>
+                <td>{{ zajecium.limitMiejsc }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_zajecia_show', { 'id': zajecium.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_zajecia_edit', { 'id': zajecium.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_zajecia_new') }}">Create a new zajecium</a>
+        </li>
+    </ul>
+{% endblock %}

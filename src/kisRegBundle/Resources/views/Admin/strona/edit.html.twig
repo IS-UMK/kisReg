@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+
+{% block bodyTopMenu %}{% endblock %}
+{% set showUrl = path('strona', { 'name': strona.nazwa })|cutUrl(strona.nazwa) %}
+
+{% block body %}
+    {% include 'kisRegBundle:Admin:strona/main_form.html.twig' with {'main_form':edit_form} %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{
+  "name": "kisReg",
+  "authors": [
+    "Bartosz Celmer <cb1986ster@gmail.com>"
+  ],
+  "description": "Automat rejestracyjny v0.0000001a",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-ui": "jqueryui#^1.12.1",
+    "bootstrap": "^3.3.7"
+  }
+}

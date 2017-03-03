@@ -1,0 +1,131 @@
+{% block choice_row -%}
+    {% set force_error = true %}
+    <fieldset class="ui-corner-all {% if (not compound or force_error|default(false)) and not valid %}error{% endif %}">
+        <legend style="width:auto; margin-bottom: auto;">{{ form_label(form) }}</legend>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </fieldset>
+{%- endblock choice_row %}
+{##############################################################################}
+{% block entity_widget -%}
+    {% if multiple -%}
+        {% if errors|length > 0 -%}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {% endif %}
+        <div style="display: none;">
+            {% set options = preferred_choices %}
+            {{- block('fancy_choice_widget_cbxhelper_options') -}}
+            {% set options = choices %}
+            {{- block('fancy_choice_widget_cbxhelper_options') -}}
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 entity-not-selected">
+                <fieldset style="max-height: 400px; overflow: auto;" class="ui-corner-all elements-contanier">
+                    <legend style="margin-bottom: auto;">
+                        <input onkeyup="{{id}}_search_update(this);" onkeydown="{{id}}_search_update(this);" onkeypress="{{id}}_search_update(this);" onchange="{{id}}_search_update(this);" onblur="{{id}}_search_update(this);" type="text" class="form-control input-inline" placeholder="Wpisz, aby wyszukać..." />
+                    </legend>
+                    {% set show_selected = false %}
+                    {% set options = preferred_choices %}
+                    {{- block('fancy_choice_widget_options') -}}
+                    {% set options = choices %}
+                    {{- block('fancy_choice_widget_options') -}}
+                </fieldset>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="col-xs-12 col-md-6 entity-selected">
+                <fieldset style="max-height: 400px; overflow: auto;" class="ui-corner-all elements-contanier">
+                    <legend style="width:auto; margin-bottom: auto;">Wybrane</legend>
+                    {% set show_selected = true %}
+                    {% set options = preferred_choices %}
+                    {{- block('fancy_choice_widget_options') -}}
+                    {% set options = choices %}
+                    {{- block('fancy_choice_widget_options') -}}
+                </fieldset>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <script>
+            function {{id}}_search_update(elem){
+                var e = $(elem);
+                var value = elem.value;
+                var ec = e.parent().parent().find('.element-contanier');
+                ec.hide();
+                if(value.length > 1)
+                    ec.filter(function(){
+                        return $(this).text().toLocaleLowerCase().indexOf(value) != -1;
+                    }).show();
+            }
+            function {{id}}_choice_click(elem){
+                var e = $(elem);
+                var r = e.parent().parent();
+                var stateNow = r.hasClass('entity-not-selected');
+                var value = e.attr('value');
+                $('input.{{ id }}_cbx_helper').filter(function(){
+                    return value == $(this).attr('value');
+                }).prop("checked",stateNow);
+                r.
+                    parent().
+                    find( ((stateNow)?'.entity-selected':'.entity-not-selected') ).
+                    find('.elements-contanier').
+                    append(e);
+            }
+        </script>
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock entity_widget %}
+{##############################################################################}
+{%- block fancy_choice_widget_cbxhelper_options -%}
+    {% for group_label, choice in options %}
+        {%- if choice is iterable -%}
+            {% set options = choice %}
+            {{- block('fancy_choice_widget_cbxhelper_options') -}}
+        {%- else -%}
+            <input class="{{ id }}_cbx_helper" type="checkbox" value="{{ choice.value }}" name="{{ full_name }}" {% if choice is selectedchoice(value) %} checked="checked"{% endif %} />
+        {%- endif -%}
+    {% endfor %}
+{%- endblock fancy_choice_widget_cbxhelper_options -%}
+{##############################################################################}
+{%- block fancy_choice_widget_options -%}
+    {% for group_label, choice in options %}
+        {%- if choice is iterable -%}
+            {% set options = choice %}
+            {{- block('fancy_choice_widget_options') -}}
+        {%- else -%}
+            {% if choice is selectedchoice(value)==show_selected %}
+                {% if attribute(choice.data,'getThumb') is defined %}
+                    <span onclick="{{id}}_choice_click(this)"
+                    class="element-contanier" style="{% if not show_selected %}display: none;{% endif %}"
+                    value="{{ choice.value }}">
+                        <div style="
+                            cursor: pointer;
+                            text-align:center;
+                            margin: 7px;
+                            width: 64px;
+                            height: 128px;
+                            float: left;
+                            "{% if choice.attr %} {% set attr = choice.attr %}{{ block('attributes') }}{% endif %}>
+                            <div class="ui-corner-all" style="
+                                margin:0px;
+                                padding: 0px;
+                                width: 64px;
+                                height: 64px;
+                                background-image:url('{{choice.data.thumb|thumbUrl(64)}}');
+                                background-repeat: no-repeat;
+                                background-position: center center;
+                                background-color: rgba(0,0,0,0.05);
+                            " /></div>
+                            <div>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}</div>
+                        </div>
+                    </span>
+                {% else %}
+                    <span class="element-contanier" style="{% if not show_selected %}display: none;{% endif %}" onclick="{{id}}_choice_click(this)" value="{{ choice.value }}">
+                        <div style="width: 100%;margin-top:2px;" class="btn btn-primary"{% if choice.attr %}{% set attr = choice.attr %}{{ block('attributes') }}{% endif %}>
+                            {{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}
+                        </div>
+                    </span>
+                {% endif %}
+            {% endif %}
+        {%- endif -%}
+    {% endfor %}
+{%- endblock fancy_choice_widget_options -%}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyTopMenu %}{% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        .tb-th {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0,0,0,0.05);
+        }
+        .tb-td {
+            padding: 7px;
+            transition-duration: 0.5s;
+        }
+        tr:hover .tb-td {
+            background-color: rgba(0,0,0,0.1);
+        }
+        tr:nth-child(2n) td{
+            background-color: rgba(0,0,0,0.05);
+        }
+        tr.nowy td {
+            background-color: rgba(94, 213, 30, 0.66);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 style="float: left;"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Podstrony</h1>
+    <a  style="float: right;" class="btn btn-success" href="{{ path('admin_strona_new') }}"><i class="fa fa-plus" aria-hidden="true"></i>  Dodaj</a>
+    <div style="clear: both;"></div>
+    <table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
+        <thead>
+            <tr>
+                <th class="tb-th">Nazwa</th>
+                <th class="tb-th">Początek</th>
+                <th class="tb-th">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for strona in stronas|sortbyfield('nazwa') %}
+            <tr{% if podswietl is not null and podswietl.id == strona.id %} class="nowy"{% endif %}>
+                <td class="tb-td"><a href="{{ path('strona', { 'name': strona.nazwa }) }}">{{ strona.nazwa }}</a></td>
+                <td class="tb-td">{{ strona.tresc|slice(0,30) }}...</td>
+                <td class="tb-td">
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="{{ path('strona', { 'name': strona.nazwa }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                        <a class="btn btn-primary" href="{{ path('admin_strona_edit', { 'id': strona.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        {{ render(controller(
+                            'kisRegBundle:Admin/Strona:createDeleteFormView',
+                            { 'strona': strona.id }
+                        )) }}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

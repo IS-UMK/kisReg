@@ -1,0 +1,161 @@
+#qv-root {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 300;
+    background-color: rgba(0, 0, 0, 0.60);
+    display: none;
+}
+
+#qv-root .iframeplayer-wrapper {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+    vertical-align: middle;
+    text-align: center;
+}
+#qv-root .iframeplayer-wrapper span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#qv-root .iframeplayer-wrapper iframe {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+#qv-zoom-info {
+    position: absolute;
+    top: 4em;
+    left: 10px;
+    padding: 7px;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 40;
+    border-radius: 4px;
+    width: 150px;
+    text-align: center;
+    transition-duration: 0.5s;
+    opacity: 0.4;
+}
+#qv-zoom-info:hover {
+    opacity: 1;
+}
+#qv-zoom-tools {
+    /*max-height: 0px;*/
+    overflow: hidden;
+}
+#qv-zoom-info:hover #qv-zoom-tools {
+    /*max-height: 30em;*/
+}
+
+#qv-zoom-minimap {
+    position: relative;
+    overflow: hidden;
+}
+#qv-zoom-minimap > img {
+    z-index: 5;
+}
+#qv-zoom-minimap-zoom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px dotted rgb(233, 36, 36);
+    background-color: rgba(233, 36, 36,0.5);
+    z-index: 10;
+    overflow: hidden;
+}
+#qv-root .thumb {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+    vertical-align: middle;
+    text-align: center;
+}
+#qv-root .thumb span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#qv-root .thumb img {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+}
+#qv-root .qv-close {
+    position: absolute;
+    right: 10px;
+    top: 4em;
+}
+#qv-root .info {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.72);
+    position: absolute;
+    width: 100%;
+    left: 0%;
+    bottom: 0%;
+}
+#qv-root .desc {
+    max-width: 50%;
+    height: 1.3em;
+    overflow: show;
+}
+#qv-root .prev,
+#qv-root .next,
+#qv-root .qv-close {
+    opacity: 0.6;
+    transition-duration: 0.7s;
+}
+#qv-root .prev:hover,
+#qv-root .next:hover,
+#qv-root .qv-close:hover {
+    opacity: 1;
+}
+#qv-root .prev {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+}
+#qv-root .next {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+}
+#qv-root .loading-indactor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -37px;
+    margin-top: -37px;
+}
+#qv-root .qv-thumb-loader:hover {
+    top: -10px;
+    background-color: rgba(255,255,255,0.2);
+    opacity: 1;
+    border-radius: 2px;
+}
+#qv-root .qv-thumb-loader {
+    border-radius: 50%;
+    transition-duration: 0.3s;
+    opacity: 0.5;
+    top: -5px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 32px;
+    height:32px;
+    background-position: center;
+    background-color: rgba(255,255,255,0.1);
+    background-repeat: no-repeat;
+}

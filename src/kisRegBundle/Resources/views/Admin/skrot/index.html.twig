@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        .tb-th {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0,0,0,0.05);
+        }
+        .tb-td {
+            padding: 7px;
+            transition-duration: 0.5s;
+        }
+        tr:hover .tb-td {
+            background-color: rgba(0,0,0,0.1);
+        }
+        tr:nth-child(2n) td{
+            background-color: rgba(0,0,0,0.05);
+        }
+        tr.nowy td {
+            background-color: rgba(94, 213, 30, 0.66);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 style="float: left;"><i class="fa fa-external-link-square" aria-hidden="true"></i> Skróty URL-i</h1>
+    <a  style="float: right;" class="btn btn-success" href="{{ path('admin_skrot_new') }}"><i class="fa fa-plus" aria-hidden="true"></i>  Dodaj</a>
+    <div style="clear: both;"></div>
+    <table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
+        <thead>
+            <tr>
+                <th class="tb-th">Nazwa</th>
+                <th class="tb-th">Cel</th>
+                <th class="tb-th">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for skrot in skrots|sortbyfield('nazwa') %}
+            <tr{% if podswietl is not null and podswietl.id == skrot.id %} class="nowy"{% endif %}>
+                <td class="tb-td"><a href="{{ path('skrot', { 'name': skrot.nazwa }) }}">{{ skrot.nazwa }}</a></td>
+                <td class="tb-td"><a href="{{ skrot.cel }}">{{ skrot.cel }}</a></td>
+                <td class="tb-td">
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="{{ path('skrot', { 'name': skrot.nazwa }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                        <a class="btn btn-primary" href="{{ path('admin_skrot_edit', { 'id': skrot.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        {{ render(controller(
+                            'kisRegBundle:Admin/Skrot:createDeleteFormView',
+                            { 'skrot': skrot.id }
+                        )) }}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

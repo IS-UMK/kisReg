@@ -1,0 +1,58 @@
+<nav class="navbar navbar-fixed-top" style="
+    border-bottom: 1px #ececec solid;
+    border-top: 4px #00b0f2 solid;
+    background-color: rgb(255, 255, 255);
+">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          MENU
+        </button>
+        <a class="navbar-brand" href="{{path('frontPage')}}">
+            <div style="position: relative; width: 28px; height: 1em; display:inline-block;">
+                {% image
+                    '../app/Resources/public/images/icon.png'
+                %}
+                    <img  style="position: absolute; top: -0.3em; max-height: 28px" src="{{ asset_url }}" />
+                {% endimage %}
+            </div>
+        Dziewczyny do ścisłych</a>
+        {% block menu_1 %}{% endblock %}
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul id="menu_2" class="nav navbar-nav">
+            <li><a href="{{path('strona',{'name':'Program'})}}">Program</a></li>
+            <li><a href="{{path('strona',{'name':'Program'})}}">Rejestracja</a></li>
+            <li><a href="{{path('kontakt')}}">Kontakt</a></li>
+            {% block menu_2 %}{% endblock %}
+        </ul>
+        <ul id="menu_3" class="nav navbar-nav navbar-right">
+            <li>
+                <a href="mailto:dziewczyny@fizyka.umk.pl">
+                    <i class="fa fa-envelope-o"></i> dziewczyny@fizyka.umk.pl
+                </a>
+            </li>
+            <li>
+                <a href="mailto:dziewczyny@fizyka.umk.pl">
+                    <div style="position: relative; width: 28px; height: 1em; display:inline-block;">
+                        <div style="position: absolute; top: -0.3em;">
+                            <span class="fa-stack">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div> Facebook
+                </a>
+            </li>
+        </ul>
+         {#<div class="navbar-form navbar-right">
+            {% block menu_right %}{% endblock %}
+            <form action="{{path('szukaj')}}" style="display: inline;">
+                <input name="q" class="form-control" placeholder="Szukaj..." type="text">
+            </form>
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>#}
+      </div>
+    </div>
+</nav>

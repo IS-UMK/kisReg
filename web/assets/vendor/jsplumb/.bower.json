@@ -1,0 +1,15 @@
+{
+  "name": "jsplumb",
+  "homepage": "https://github.com/sporritt/jsPlumb",
+  "version": "2.2.8",
+  "_release": "2.2.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.2.8",
+    "commit": "b8c021a88ee871c32154a4d3b9beb25daf9a5ee2"
+  },
+  "_source": "https://github.com/sporritt/jsPlumb.git",
+  "_target": "^2.2.8",
+  "_originalSource": "jsplumb",
+  "_direct": true
+}

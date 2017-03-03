@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Grupa</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ grupa.id }}</td>
+            </tr>
+            <tr>
+                <th>Opiekun</th>
+                <td>{{ grupa.opiekun }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ grupa.email }}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ grupa.telefon }}</td>
+            </tr>
+            <tr>
+                <th>Uwagi</th>
+                <td>{{ grupa.uwagi }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_grupa_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_grupa_edit', { 'id': grupa.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

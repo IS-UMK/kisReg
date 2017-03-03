@@ -1,0 +1,59 @@
+{% extends 'common-nav.html.twig' %}
+
+{% block menu_1 %}{% endblock %}
+{% block menu_2 %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administracja<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="" href="{{path('admin_index')}}"><i class="fa fa-bar-chart" aria-hidden="true"></i> Podsumowanie</a>
+            </li>
+            {% if editUrl is defined %}
+                <li>
+                    <a href="{{editUrl|raw}}">
+                        <i class="fa fa-pencil fa-x1" aria-hidden="true"></i> Edytuj
+                    </a>
+                </li>
+            {% endif %}
+            {% if showUrl is defined %}
+                <li>
+                    <a href="{{showUrl|raw}}">
+                        <i class="fa fa-eye fa-x1" aria-hidden="true"></i> Pokaż
+                    </a>
+                </li>
+            {% endif %}
+            <li class="dropdown-header">Zasoby</li>
+            <li>
+                <div style="margin-left: 3px;" class="btn-group">
+                    <a class="btn btn-success" href="{{path('admin_strona_new')}}"><i class="fa fa-plus"></i></a>
+                    <a style="width: 115px;" class="btn btn-default" href="{{path('admin_strona_index')}}">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> Strony
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div style="margin-left: 3px;" class="btn-group">
+                    <a class="btn btn-success" href="{{path('admin_skrot_new')}}"><i class="fa fa-plus"></i></a>
+                    <a style="width: 115px;" class="btn btn-default" href="{{path('admin_skrot_index')}}">
+                        <i class="fa fa-external-link-square" aria-hidden="true"></i> Skróty URLi
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div style="margin-left: 3px;" class="btn-group">
+                    <a class="btn btn-success" href="{{path('admin_uzytkownik_new')}}"><i class="fa fa-plus"></i></a>
+                    <a style="width: 115px;" class="btn btn-default" href="{{path('admin_uzytkownik_index')}}">
+                        <i class="fa fa-users" aria-hidden="true"></i> Użytkownicy
+                    </a>
+                </div>
+            </li>
+            <li>
+                <a class="btn btn-warning" href="/logout">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Wyloguj
+                </a>
+            </li>
+        </ul>
+    </li>
+{% endblock %}
+{% block menu_right %}
+{% endblock %}

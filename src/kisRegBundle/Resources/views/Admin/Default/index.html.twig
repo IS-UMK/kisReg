@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .summary-block{
+            margin: 7px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Podsumowanie kolekcji</h3>
+        </div>
+        <div class="panel-body" style="text-align: center;">
+            <h3>
+                <a class="summary-block btn btn-default" href="{{path('admin_uzytkownik_index')}}">
+                    <i class="fa fa-users fa-x1" aria-hidden="true"></i> Użytkownicy <span class="badge">{{uzytkownik_n}}</span>
+                </a>
+                <a class="summary-block btn btn-default" href="{{path('admin_skrot_index')}}">
+                    <i class="fa fa-external-link-square" aria-hidden="true"></i> Skrót <span class="badge">{{skrot_n}}</span>
+                </a>
+                <a class="summary-block btn btn-default" href="{{path('admin_strona_index')}}">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i> Strona <span class="badge">{{strona_n}}</span>
+                </a>
+            </h3>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    $().ready(function(){
+        $('#{{button_id}}').click(function(event) {
+            event.preventDefault();
+            var iloscPlikow = parseInt($(this).attr('plikicount'));
+            if(isNaN(iloscPlikow)) iloscPlikow = 1*1;
+
+            var nowy = $('#{{contanier}}').attr('data-prototype').replace(/__name__/g, iloscPlikow);
+            nowy = $('<div></div>').append(nowy);
+            nowy.attr('id','idplikuDoUploadowania_{{button_id}}_'+iloscPlikow);
+            nowy.find('.panel-body').css('background','rgb(176, 245, 140)');
+            iloscPlikow++;
+            $(this).attr('plikicount',iloscPlikow);
+
+            nowy.find('input').trigger('click').change(function(){
+                $('#{{contanier}}').append(nowy);
+            });
+        });
+    });
+</script>

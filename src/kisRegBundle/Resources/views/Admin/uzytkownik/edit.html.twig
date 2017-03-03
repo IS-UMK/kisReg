@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyTopMenu %}{% endblock %}
+{% block body %}
+    <h2>{{uzytkownik.username}}</h2>
+    <hr />
+    {% include 'kisRegBundle:Admin:uzytkownik/main_form.html.twig' with {'main_form':edit_form} %}
+{% endblock %}

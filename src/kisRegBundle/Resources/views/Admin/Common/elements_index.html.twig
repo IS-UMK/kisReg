@@ -1,0 +1,27 @@
+<div>
+    <h1 style="float: left;">{{title}}</h1>
+    <a  style="float: right;" class="btn btn-success" href="{{ path(newPathName) }}">Dodaj nowe</a>
+    <hr style="clear: both;" />
+</div>
+{% for element in elements %}
+    <a style="
+        text-align:center;
+        margin: 7px;
+        width: 64px;
+        height: 128px;
+        float: left;
+        display: inline-block;" href="{{ path(editPathName, { 'id': element.id }) }}">
+        <div class="ui-corner-all" style="
+            margin:0px;
+            padding: 0px;
+            width: 64px;
+            height: 64px;
+            background-image:url('{{element.thumb|thumbUrl(64)}}');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: rgba(0,0,0,0.05);
+        " /></div>
+        <div>{{ element.name }}</div>
+    </a>
+{% endfor %}
+<hr style="clear: both;" />

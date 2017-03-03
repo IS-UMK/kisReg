@@ -1,0 +1,49 @@
+.tiles-wrap > li {
+    position: relative;
+}
+.wall-bookmark {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.wall-bookmark > .bookmark-show-if-not {
+    opacity: 0.1;
+    transition-duration: 0.2s;
+}
+.tiles-wrap > li:hover .wall-bookmark > .bookmark-show-if-not {
+    opacity: 1;
+}
+.tiles-wrap > li p {
+    position: absolute;
+    bottom: -7px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.79);
+    width: 100%;
+    font-size: large;
+    color: rgba(0, 0, 0,0.95);
+    opacity: 0.2;
+    transition-duration: 0.2s;
+}
+.tiles-wrap > li:hover p {
+    opacity: 1;
+}
+.tiles-wrap img {
+    display: inline-block;
+    max-width: 200px;
+}
+
+.tiles-wrap > li.tile-of-miejsce p {
+    background-color: rgba(239, 242, 185, 0.79);
+}
+
+.tiles-wrap > li.tile-of-zasob p {
+    background-color: rgba(200, 185, 242, 0.79);
+}
+
+.tiles-wrap > li.tile-of-osoba p {
+    background-color: rgba(186, 185, 242, 0.79);
+}
+
+.tiles-wrap > li.tile-of-wydarzenie p {
+    background-color: rgba(242, 185, 185, 0.79);
+}

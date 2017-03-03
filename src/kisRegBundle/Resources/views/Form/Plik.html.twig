@@ -1,0 +1,90 @@
+{% block kisRegBundle_plik_bez_nazwy_row %}
+    <div class="col-xs-12 col-md-4">
+        {# {{ form_label(form) }} #}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block kisRegBundle_plik_bez_nazwy_widget %}
+    {% spaceless %}
+        <script type="text/javascript">
+            function showPreview_{{form.vars.id}}(input) {
+               if (input.files && input.files[0]) {
+                   var reader = new FileReader();
+                   $('#filesize_{{form.vars.id}}').html(input.files[0].size+'B');
+                   $('#filetype_{{form.vars.id}}').html(input.files[0].type);
+                   $('#filename_{{form.vars.id}}').html(input.files[0].name);
+                   reader.onload = function (e) {
+                       var data = e.target.result;
+                       if(data.startsWith('data:image/')){
+                           $('#preview_{{form.vars.id}}').attr('src',data);
+                           $('#preview_{{form.vars.id}}').show();
+                           $('#nopreview_{{form.vars.id}}').hide();
+                       }
+                   }
+                   reader.readAsDataURL(input.files[0]);
+               }
+            }
+        </script>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="position: relative;">
+                    {{ form_widget(form,{'label':'','attr':{'onchange':'showPreview_'~form.vars.id~'($(this).find(\'input\')[0]);'}}) }}
+                    <button class="btn btn-danger" style="position: absolute; top: 3px; right: 3px;" role="button" onclick="$(this).parent().parent().parent().parent().remove();">Usuń</button>
+                </h3>
+            </div>
+            <div class="panel-body" style="height: 112px;">
+                <div style="float: left;">
+                    {% if value is not empty and value is not null %}
+                        <a href="{{ value|viewUrl }}">
+                            <img style="max-width:64px;max-height:92px;" src="{{ value|thumbUrl }}" id="preview_{{form.vars.id}}" />
+                        </a>
+                    {% else %}
+                        <img style="max-width:64px;max-height:92px;" style="display:none;" src="" id="preview_{{form.vars.id}}" />
+                        <img style="max-width:64px;max-height:92px;" id="nopreview_{{form.vars.id}}" class="plik_podglad_pusty" src="{% image '@kisRegBundle/Resources/public/images/empty.png' %}{{ asset_url }}{% endimage %}" />
+                    {% endif %}
+                </div>
+                <div style="float: right; width: 240px; height:92px; overflow: auto;">
+                    Nazwa: <span id="filename_{{form.vars.id}}">{% if value is defined and value is not null %}{{ value.nazwa }}{% else %}?{% endif %}</span><br/>
+                    Rozmiar: <span id="filesize_{{form.vars.id}}">{% if value is defined and value is not null %}{{ value.wielkosc }}B{% else %}?{% endif %}</span><br/>
+                    Typ: <span id="filetype_{{form.vars.id}}">{% if value is defined and value is not null %}{{ value.mime }}{% else %}?{% endif %}</span><br/>
+                    Przesłano: {% if value is defined and value is not null %}{{ value.utworzenie | smartDate }}{% else %}Oczekuje{% endif %}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block kisRegBundle_plik_row %}
+    {% spaceless %}
+         <div class="plik_input_widget_wrapper">
+            <span class="plik_podglad">
+                {% if value is defined and value is not null %}
+                    <img src="{{ value|thumbUrl }}" id="preview_{{form.vars.id}}" />
+                {% else %}
+                    <img style="display:none" src="" id="preview_{{form.vars.id}}" />
+                    <img id="nopreview_{{form.vars.id}}" src="{% image '@kisRegBundle/Resources/public/images/empty.png' %}{{ asset_url }}{% endimage %}" />
+                {% endif %}
+            </span>
+            <div class="plik_input_details">
+                <h5 class="fileName" ><a target="_blank"
+                  {% if value is defined and value is not null %}href="{{ path('app_get_file', {'id': value.id } ) }}" {% endif %}
+                  >
+                  {% if value is defined and value is not null %}
+                     {{ value.nazwa }}
+                  {% endif %}
+                </a></h5>
+                <span><h5 class="docFileDate">
+                	{% if value is defined and value is not null %}
+                     {{ value.utworzenie | smartDate }}
+                    {% endif %}
+                </h5></span>
+            </div>
+         </div>
+      <div style="display: none">
+   	     {{ form_widget(form,{'attr':{'onchange':'showPreview_'~form.vars.id~'($(this).find(\'input\')[0]);'}}) }}
+      </div>
+      {% endspaceless %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyTopMenu %}{% endblock %}
+{% block body %}
+    {% include 'kisRegBundle:Admin:strona/main_form.html.twig' with {'main_form':form} %}
+{% endblock %}

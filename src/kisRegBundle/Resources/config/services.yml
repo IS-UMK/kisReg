@@ -1,0 +1,18 @@
+services:
+    twig_extension_comea:
+        class: kisRegBundle\Twig\MiscTwigExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+    twig_extension_urlcuter:
+        class: kisRegBundle\Twig\ShorterTwigExtension
+        public: false
+        arguments: [ '@doctrine.orm.entity_manager', '@router' ]
+        tags:
+            - { name: twig.extension }
+
+    thumbliner:
+        class: kisRegBundle\Services\ThumblinerService
+        arguments:
+            - '@file_locator'
+            - '%kernel.cache_dir%/thumbliner'
