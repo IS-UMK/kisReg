@@ -91,6 +91,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: kisRegBundle\Entity\Uzytkownik
+    from_email:
+        address: dziewczyny@fizyka.umk.pl
+        sender_name: Dziewczyny do ścisłych!
 
 ewz_recaptcha:
     public_key:  6LdwfxcUAAAAALp2dRVo7mkc--kNaln54efuoIvt
