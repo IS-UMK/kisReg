@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        div#program > div.row {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0, 0, 0, 0.02);
+            transition-duration: 0.5s;
+        }
+        div#program > div.row:nth-child(2n+1){
+            background-color: rgba(0, 0, 0, 0.09);
+        }
+        div#program > div.row:hover {
+            background-color: rgba(0,255,0,0.09);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="col-xs-12 col-md-4 col-lg-2">
+        <b>
+            <a href="{{path('program')}}">
+                <i class="fa fa-calendar" aria-hidden="true"></i> Harmonogram
+            </a>
+        </b>
+        <hr/>
+        {% for inne in all %}
+            {% if not loop.first %}
+                <hr />
+            {% endif %}
+            <a href="{{path('zajecia',{'id':inne.id})}}">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ inne.nazwa }}
+            </a>
+        {% endfor %}
+    </div>
+    <div class="col-xs-12 col-md-8 col-lg-10">
+        <h1 style="float: left;align: left; ">{{zajecia.nazwa}}</h1>
+        <div style="float: right;align: right;">
+            {% for inne in podobne|sortbyfield('poczatek') %}
+                {% if not loop.first %}
+                    <br />
+                {% endif %}
+                {{ inne.poczatek|date('H') }}<sup>{{ inne.poczatek|date('i') }}</sup>-{{ inne.koniec|date('H') }}<sup>{{ inne.koniec|date('i') }}</sup> limit: {{ inne.limitMiejsc }}
+            {% endfor %}
+        </div>
+        <hr style="clear:both;" />
+        <div>{{zajecia.opis|raw}}</div>
+    </div>
+{% endblock %}

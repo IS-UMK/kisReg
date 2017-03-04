@@ -3,6 +3,7 @@ body {
     font-family: 'Josefin Sans', sans-serif;
     color: rgb(135, 135, 135);
     background-color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     /*background-image: url({% image '@kisRegBundle/Resources/public/images/bg2.jpg' %}{{ asset_url }}{% endimage %});
     background-position: center top;
     background-attachment: fixed;*/

@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
+use kisRegBundle\Entity\Zajecia;
 
 class DefaultController extends Controller
 {
@@ -55,7 +56,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dane = [];
         $repo = $em->getRepository('kisRegBundle:Zajecia');
-        
+
         $dane['zajecia'] = $repo->findAllGroupedByName();
 
         return $dane;
@@ -64,15 +65,12 @@ class DefaultController extends Controller
      * @Template()
      * @Route("/zajecia-{id}.html",name="zajecia")
      */
-    public function zajeciaAction($id){
+    public function zajeciaAction(Zajecia $zajecia){
         $em = $this->getDoctrine()->getManager();
-        $dane = [];
-        // $repo = $em->getRepository('');
-        $nazwy = $em->createQuery('SELECT z.nazwa FROM kisRegBundle:Zajecia z')->getResult();
-
-        $dane['zajecia'] = $nazwy;
-
-        return $dane;
+        $repo = $em->getRepository('kisRegBundle:Zajecia');
+        $podobne = $repo->findByNazwa($zajecia->getNazwa());
+        $all = $repo->findAllGroupedByName();
+        return ['all'=>$all,'podobne'=>$podobne,'zajecia'=>$zajecia];
     }
     /**
      * @Route("/{name}-p.html", name="strona")

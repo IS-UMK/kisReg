@@ -19,7 +19,7 @@
 
 {% block body %}
     <div id="program" class="col-xs-12">
-        <div class="row hidden-xs" style="background-color: #272727; color:#888888; font-size: large; font-weight: bold;">
+        <div class="row hidden-xs" style="background-color: #949494; color:#dfdfdf; font-size: large; font-weight: bold;">
             <div class="col-sm-8 col-md-10">
                 Nazwa
             </div>
@@ -30,7 +30,7 @@
         {% for z in zajecia %}
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-10">
-                    <a href="123">{{z.nazwa}}</a>
+                    <a href="{{path('zajecia',{'id':z.id})}}">{{z.nazwa}}</a>
                     <small class="hidden-xs"><br/>{{z.opis|raw}}</small>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-2">
