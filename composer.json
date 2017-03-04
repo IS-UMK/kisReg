@@ -38,7 +38,7 @@
         "beelab/bowerphp": "*",
         "friendsofsymfony/user-bundle": "dev-master",
         "stfalcon/tinymce-bundle": "^2.1",
-        "raulfraile/ladybug-bundle": "^1.0",
+        "raulfraile/ladybug-bundle": "*",
         "snilius/twig-sort-by-field": "^0.1.5",
         "excelwebzone/recaptcha-bundle": "^1.4"
     },
