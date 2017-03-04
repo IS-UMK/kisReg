@@ -1,47 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Zajecias list</h1>
 
-    <table>
+{% block bodyTopMenu %}{% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        .tb-th {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0,0,0,0.05);
+        }
+        .tb-td {
+            padding: 7px;
+            transition-duration: 0.5s;
+        }
+        tr:hover .tb-td {
+            background-color: rgba(0,0,0,0.1);
+        }
+        tr:nth-child(2n) td{
+            background-color: rgba(0,0,0,0.05);
+        }
+        tr.nowy td {
+            background-color: rgba(94, 213, 30, 0.66);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 style="float: left;"><i class="fa fa-clock-o" aria-hidden="true"></i> Zajęcia</h1>
+    <a  style="float: right;" class="btn btn-success" href="{{ path('admin_zajecia_new') }}"><i class="fa fa-plus" aria-hidden="true"></i>  Dodaj</a>
+    <div style="clear: both;"></div>
+    <table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nazwa</th>
-                <th>Opis</th>
-                <th>Poczatek</th>
-                <th>Koniec</th>
-                <th>Limitmiejsc</th>
-                <th>Actions</th>
+                <th class="tb-th">Nazwa</th>
+                <th class="tb-th">Godziny</th>
+                <th class="tb-th">Limit</th>
+                <th class="tb-th">Akcje</th>
             </tr>
         </thead>
         <tbody>
-        {% for zajecium in zajecias %}
-            <tr>
-                <td><a href="{{ path('admin_zajecia_show', { 'id': zajecium.id }) }}">{{ zajecium.id }}</a></td>
-                <td>{{ zajecium.nazwa }}</td>
-                <td>{{ zajecium.opis }}</td>
-                <td>{% if zajecium.poczatek %}{{ zajecium.poczatek|date('H:i:s') }}{% endif %}</td>
-                <td>{% if zajecium.koniec %}{{ zajecium.koniec|date('H:i:s') }}{% endif %}</td>
-                <td>{{ zajecium.limitMiejsc }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_zajecia_show', { 'id': zajecium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_zajecia_edit', { 'id': zajecium.id }) }}">edit</a>
-                        </li>
-                    </ul>
+        {% for zajecia in zajecias %}
+            <tr{% if podswietl is defined and  podswietl is not null and podswietl.id == zajecia.id %} class="nowy"{% endif %}>
+                <td class="tb-td"><a href="{{ path('zajecia', { 'id': zajecia.id }) }}">{{ zajecia.nazwa }}</a></td>
+                <td class="tb-td">{{ zajecia.poczatek|date('H:i') }}-{{ zajecia.koniec|date('H:i') }}</td>
+                <td class="tb-td">{{ zajecia.limitMiejsc|default('brak') }}</td>
+                <td class="tb-td">
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="{{ path('admin_zajecia_show', { 'id': zajecia.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                        <a class="btn btn-primary" href="{{ path('admin_zajecia_edit', { 'id': zajecia.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        {{ render(controller(
+                            'kisRegBundle:Zajecia:createDeleteFormView',
+                            { 'zajecia': zajecia.id }
+                        )) }}
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_zajecia_new') }}">Create a new zajecium</a>
-        </li>
-    </ul>
 {% endblock %}

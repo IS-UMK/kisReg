@@ -8,8 +8,8 @@ use kisRegBundle\Entity\Plik;
 class MiscTwigExtension extends \Twig_Extension {
     public function getTests(){
         return [
-            'zasobType' =>  new \Twig_Function_Method($this, 'zasobTypeCheck'),
-            'instanceof' =>  new \Twig_Function_Method($this, 'isInstanceof')
+            new \Twig_SimpleTest('zasobType',[$this, 'zasobTypeCheck']),
+            new \Twig_SimpleTest('instanceof',[$this, 'isInstanceof'])
         ];
     }
     public function isInstanceof($var, $instance) {
@@ -22,7 +22,7 @@ class MiscTwigExtension extends \Twig_Extension {
     }
     public function getFunctions() {
         return array(
-            'static' => new \Twig_Function_Method($this, 'static_get')
+            new \Twig_SimpleFunction('static', array($this, 'static_get'))
         );
     }
     public function static_get($class, $property) {

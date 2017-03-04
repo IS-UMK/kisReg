@@ -48,6 +48,33 @@ class DefaultController extends Controller
         ]);
     }
     /**
+     * @Template()
+     * @Route("/program.html",name="program")
+     */
+    public function programAction(){
+        $em = $this->getDoctrine()->getManager();
+        $dane = [];
+        $repo = $em->getRepository('kisRegBundle:Zajecia');
+        
+        $dane['zajecia'] = $repo->findAllGroupedByName();
+
+        return $dane;
+    }
+    /**
+     * @Template()
+     * @Route("/zajecia-{id}.html",name="zajecia")
+     */
+    public function zajeciaAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $dane = [];
+        // $repo = $em->getRepository('');
+        $nazwy = $em->createQuery('SELECT z.nazwa FROM kisRegBundle:Zajecia z')->getResult();
+
+        $dane['zajecia'] = $nazwy;
+
+        return $dane;
+    }
+    /**
      * @Route("/{name}-p.html", name="strona")
      * @Template()
      */

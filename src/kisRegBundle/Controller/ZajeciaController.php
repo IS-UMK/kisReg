@@ -133,4 +133,13 @@ class ZajeciaController extends Controller
             ->getForm()
         ;
     }
+    /**
+     * @Route("/{id}/deleteForm", name="admin_zajeca_delete_form")
+     */
+    public function createDeleteFormViewAction(Zajecia $zajecia)
+    {
+        return $this->render('kisRegBundle:Admin:Common/delete_form.html.twig', array(
+            'form' => $this->createDeleteForm($zajecia)->createView(),
+        ));
+    }
 }

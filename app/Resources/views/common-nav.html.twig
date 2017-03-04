@@ -21,8 +21,9 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul id="menu_2" class="nav navbar-nav">
-            <li><a href="{{path('strona',{'name':'Program'})}}">Program</a></li>
-            <li><a href="{{path('strona',{'name':'Program'})}}">Rejestracja</a></li>
+            <li><a href="{{path('program')}}">Program</a></li>
+            <li><a href="{{path('strona',{'name':'osoby'})}}">Prelegenci</a></li>
+            <li><a href="#">Rejestracja</a></li>
             <li><a href="{{path('kontakt')}}">Kontakt</a></li>
             {% block menu_2 %}{% endblock %}
         </ul>

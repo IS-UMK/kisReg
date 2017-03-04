@@ -133,4 +133,13 @@ class GrupaController extends Controller
             ->getForm()
         ;
     }
+    /**
+     * @Route("/{id}/deleteForm", name="admin_grupa_delete_form")
+     */
+    public function createDeleteFormViewAction(Grupa $grupa)
+    {
+        return $this->render('kisRegBundle:Admin:Common/delete_form.html.twig', array(
+            'form' => $this->createDeleteForm($grupa)->createView(),
+        ));
+    }
 }
