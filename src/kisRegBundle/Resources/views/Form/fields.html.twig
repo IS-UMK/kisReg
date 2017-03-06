@@ -1,2 +1,71 @@
 {% use 'kisRegBundle:Form:Plik.html.twig' %}
-{% use 'kisRegBundle:Form:Encje.html.twig' %}
+{# {% use 'kisRegBundle:Form:Encje.html.twig' %} #}
+
+{% block _kisregbundle_rejestracjagrupa_zapisy_widget -%}
+    <script>
+        var zajecia = {};
+        var zajeciaToMax = {};
+        var zajeciaIds = [];
+        function addZajecia(id,nazwa,start,stop,limitMiejsc){
+            if(typeof zajecia[nazwa] === 'undefined'){
+                zajecia[nazwa] = [];
+            }
+            zajecia[nazwa].push([id,start,stop,limitMiejsc]);
+            zajeciaIds.push(id);
+            zajeciaToMax[id] = limitMiejsc;
+        }
+        function updateZajeciaIlosc(){
+            for(i in zajeciaIds)
+                $('#'+zajeciaIds[i]).val(0);
+            $('.zajeciaRow').each(function(){
+                var row = $(this);
+                var id = row.find('select').val();
+                var no = row.find('input[type=number]').val();
+                if(zajeciaToMax[id]<no){
+                    no = zajeciaToMax[id];
+                    row.find('input[type=number]').val(no)
+                }
+                $('#'+id).val(no);
+            });
+        }
+    </script>
+    {% for child in form %}
+        <script>
+            addZajecia(
+                "{{ child.children.ilosc.vars.id|e('js') }}",
+                "{{ child.vars.data.zajecia.nazwa|e('js') }}",
+                "{{ child.vars.data.zajecia.poczatek|date('H:i')|e('js') }}",
+                "{{ child.vars.data.zajecia.koniec|date('H:i')|e('js') }}",
+                "{{ child.vars.data.zajecia.pozostaloMiejsc }}"
+            );
+        </script>
+        <div style="display:none;">
+            {{- form_row(child) -}}
+        </div>
+    {% endfor %}
+    <div id="wyborZajec"></div>
+    <script>
+        for(nazwa in zajecia){
+            var label = $('<div>');
+            label.addClass('col-xs-12 col-sm-6');
+            label.html(nazwa);
+            var godziny = $('<select>');
+            godziny.addClass('col-xs-6 col-sm-3');
+            godziny.change(updateZajeciaIlosc);
+            var z = zajecia[nazwa];
+            for(i=0;i<z.length;i++){
+                var opt = $('<option>');
+                opt.attr('value',zajecia[nazwa][i][0]);
+                opt.html(zajecia[nazwa][i][1] + ' - ' + zajecia[nazwa][i][2] + ' zostało miejsc: '+zajecia[nazwa][i][3]);
+                godziny.append(opt);
+            }
+            var ilosc = $('<input type="number" value="0" min="0" />');
+            ilosc.change(updateZajeciaIlosc);
+            ilosc.addClass('col-xs-6 col-sm-3');
+            var row = $('<div>');
+            row.addClass('row zajeciaRow');
+            row.append(label,godziny,ilosc,'<hr/>');
+            row.appendTo($('#wyborZajec'));
+        }
+    </script>
+{%- endblock _kisregbundle_rejestracjagrupa_zapisy_widget %}

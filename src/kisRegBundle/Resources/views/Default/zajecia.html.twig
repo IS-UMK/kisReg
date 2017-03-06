@@ -41,7 +41,7 @@
                 {% if not loop.first %}
                     <br />
                 {% endif %}
-                {{ inne.poczatek|date('H') }}<sup>{{ inne.poczatek|date('i') }}</sup>-{{ inne.koniec|date('H') }}<sup>{{ inne.koniec|date('i') }}</sup> limit: {{ inne.limitMiejsc }}
+                {{ inne.poczatek|date('H') }}<sup>{{ inne.poczatek|date('i') }}</sup>-{{ inne.koniec|date('H') }}<sup>{{ inne.koniec|date('i') }}</sup> limit: {{ inne.pozostaloMiejsc }}
             {% endfor %}
         </div>
         <hr style="clear:both;" />

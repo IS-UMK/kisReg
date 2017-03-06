@@ -6,23 +6,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GrupaType extends AbstractType
+class ZapisType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('opiekun')->add('email')->add('szkola')->add('telefon')->add('potwierdzono')->add('uwagi');
+        $builder->add('ilosc')->add('grupa')->add('zajecia');
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'kisRegBundle\Entity\Grupa'
+            'data_class' => 'kisRegBundle\Entity\Zapis'
         ));
     }
 
@@ -31,7 +31,7 @@ class GrupaType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'kisregbundle_grupa';
+        return 'kisregbundle_zapis';
     }
 
 

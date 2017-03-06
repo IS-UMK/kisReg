@@ -3,6 +3,8 @@
 namespace kisRegBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use kisRegBundle\Entity\Grupa;
+use kisRegBundle\Entity\Zapis;
 
 /**
  * Zajecia
@@ -56,6 +58,10 @@ class Zajecia
      */
     private $limitMiejsc;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Zapis", mappedBy="zajecia",cascade={"all"})
+     */
+    private $zapisy;
 
     /**
      * Get id
@@ -186,5 +192,59 @@ class Zajecia
     {
         return $this->limitMiejsc;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->zapisy = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add zapisy
+     *
+     * @param \kisRegBundle\Entity\Zapis $zapisy
+     *
+     * @return Zajecia
+     */
+    public function addZapisy(\kisRegBundle\Entity\Zapis $zapisy)
+    {
+        $this->zapisy[] = $zapisy;
+
+        return $this;
+    }
+
+    /**
+     * Remove zapisy
+     *
+     * @param \kisRegBundle\Entity\Zapis $zapisy
+     */
+    public function removeZapisy(\kisRegBundle\Entity\Zapis $zapisy)
+    {
+        $this->zapisy->removeElement($zapisy);
+    }
+
+    /**
+     * Get zapisy
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getZapisy()
+    {
+        return $this->zapisy;
+    }
+
+    public function pozostaloMiejsc(){
+        $o = 0;
+        foreach($this->zapisy as $zapis){
+            if($zapis->getGrupa()->getPotwierdzono())
+                $o += $zapis->getIlosc();
+        }
+        return $this->limitMiejsc - $o;
+    }
+
+    public function __toString(){
+
+        return $this->getNazwa();//.'('.date('H:i',$this->getPoczatek()).' - '.date('H:i',$this->getKoniec()).')';
+    }
+}

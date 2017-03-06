@@ -3,6 +3,8 @@
 namespace kisRegBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use kisRegBundle\Entity\Zajecia;
+use kisRegBundle\Entity\Zapis;
 
 /**
  * Grupa
@@ -38,9 +40,21 @@ class Grupa
     /**
      * @var string
      *
+     * @ORM\Column(name="szkola", type="string", length=255)
+     */
+    private $szkola;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="telefon", type="string", length=255, nullable=true)
      */
     private $telefon;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Zapis", mappedBy="grupa",cascade={"all"},cascade={"all"})
+     */
+    private $zapisy;
 
     /**
      * @var string
@@ -49,6 +63,12 @@ class Grupa
      */
     private $uwagi;
 
+    /**
+     * @var boolval
+     *
+     * @ORM\Column(name="potwierdzono", type="boolean", nullable=true)
+     */
+    private $potwierdzono;
 
     /**
      * Get id
@@ -154,5 +174,94 @@ class Grupa
     public function getUwagi()
     {
         return $this->uwagi;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->zapisy = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set szkola
+     *
+     * @param string $szkola
+     *
+     * @return Grupa
+     */
+    public function setSzkola($szkola)
+    {
+        $this->szkola = $szkola;
+
+        return $this;
+    }
+
+    /**
+     * Get szkola
+     *
+     * @return string
+     */
+    public function getSzkola()
+    {
+        return $this->szkola;
+    }
+
+    /**
+     * Add zapisy
+     *
+     * @param \kisRegBundle\Entity\Zapis $zapisy
+     *
+     * @return Grupa
+     */
+    public function addZapisy(\kisRegBundle\Entity\Zapis $zapisy)
+    {
+        $this->zapisy[] = $zapisy;
+
+        return $this;
+    }
+
+    /**
+     * Remove zapisy
+     *
+     * @param \kisRegBundle\Entity\Zapis $zapisy
+     */
+    public function removeZapisy(\kisRegBundle\Entity\Zapis $zapisy)
+    {
+        $this->zapisy->removeElement($zapisy);
+    }
+
+    /**
+     * Get zapisy
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getZapisy()
+    {
+        return $this->zapisy;
+    }
+
+    /**
+     * Set potwierdzono
+     *
+     * @param boolean $potwierdzono
+     *
+     * @return Grupa
+     */
+    public function setPotwierdzono($potwierdzono)
+    {
+        $this->potwierdzono = $potwierdzono;
+
+        return $this;
+    }
+
+    /**
+     * Get potwierdzono
+     *
+     * @return boolean
+     */
+    public function getPotwierdzono()
+    {
+        return $this->potwierdzono;
     }
 }

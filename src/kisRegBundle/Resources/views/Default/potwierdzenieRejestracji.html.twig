@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        div#program > div.row {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0, 0, 0, 0.02);
+            transition-duration: 0.5s;
+        }
+        div#program > div.row:nth-child(2n+1){
+            background-color: rgba(0, 0, 0, 0.09);
+        }
+        div#program > div.row:hover {
+            background-color: rgba(0,255,0,0.09);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    Dziękujemy!
+    <hr /> Sprawdź pocztę!
+
+{% endblock %}

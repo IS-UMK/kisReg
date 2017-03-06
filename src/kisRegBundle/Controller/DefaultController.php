@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 use kisRegBundle\Entity\Zajecia;
+use kisRegBundle\Entity\Grupa;
+use kisRegBundle\Entity\Zapis;
 
 class DefaultController extends Controller
 {
@@ -86,6 +88,79 @@ class DefaultController extends Controller
             return ['strona' => $strona];
         }
         throw $this->createNotFoundException('Strona nie istnieje!');
+    }
+    /**
+     * @Route("/potwierdz-{id}.html", name="rejestracjaPotwierdzona")
+     * @Template()
+     */
+    public function rejestracjaPotwierdzonaAction(Grupa $grupa){
+        $grupa->setPotwierdzono(true);
+        $isOk = true;
+        foreach ($grupa->getZapisy() as $zapis) {
+            if($zapis->getIlosc() > $zapis->getZajecia()->pozostaloMiejsc())
+                $isOk = false;
+        }
+        if($isOk){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return ['isOk'=>true];
+        }
+        return ['isOk'=>false];
+    }
+    /**
+     * @Route("/potwierdzenieRejestracji.html", name="potwierdzenieRejestracji")
+     * @Template()
+     */
+    public function potwierdzenieRejestracjiAction(Request $request){
+        return [];
+    }
+    /**
+     * @Route("/rejestracja.html", name="rejestracja")
+     * @Template()
+     */
+    public function rejestracjaAction(Request $request){
+        $grupa = new Grupa();
+        $wszystkieZajecia = $this->getDoctrine()->getManager()->getRepository('kisRegBundle:Zajecia')->findAll();
+        foreach($wszystkieZajecia as $zajecia){
+            $z = new Zapis();
+            $z->setZajecia($zajecia);
+            $z->setGrupa($grupa);
+            $z->setIlosc(0);
+            $grupa->addZapisy($z);
+            $zajecia->addZapisy($z);
+        }
+        $form = $this->createForm('kisRegBundle\Form\RejestracjaGrupaType', $grupa);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $outMsg = 'Wiadomość została wysłana';
+            $data = ['grupa'=>$grupa];
+            $grupa->setPotwierdzono(false);
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Potwierdzenie rejestracji na zajęcia')
+                ->setTo([$grupa->getEmail()=>$grupa->getOpiekun()])
+                ->setBody(
+                    $this->renderView(
+                        'kisRegBundle:Emails:potwierdzenieRejestracji.html.twig',
+                        $data
+                    ),
+                    'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                        'kisRegBundle:Emails:potwierdzenieRejestracji.txt.twig',
+                        $data
+                    ),
+                    'text/plain'
+                )
+            ;
+            $this->get('mailer')->send($message);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($grupa);
+            $em->flush();
+            return $this->redirectToRoute('potwierdzenieRejestracji');
+        }
+        $out = ['form'=>$form->createView()];
+        return $out;
     }
     /**
      * @Route("/kontakt.html", name="kontakt")
