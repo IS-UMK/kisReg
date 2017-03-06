@@ -94,16 +94,18 @@ class DefaultController extends Controller
      * @Template()
      */
     public function rejestracjaPotwierdzonaAction(Grupa $grupa){
-        $grupa->setPotwierdzono(true);
+        $isDone = $grupa->getPotwierdzono();
         $isOk = true;
-        foreach ($grupa->getZapisy() as $zapis) {
-            if($zapis->getIlosc() > $zapis->getZajecia()->pozostaloMiejsc())
-                $isOk = false;
-        }
+        if($isDone==false)
+            foreach ($grupa->getZapisy() as $zapis) {
+                if($zapis->getIlosc() > $zapis->getZajecia()->pozostaloMiejsc())
+                    $isOk = false;
+            }
         if($isOk){
+            $grupa->setPotwierdzono(true);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return ['isOk'=>true];
+            return ['isOk'=>true,'grupa'=>$grupa];
         }
         return ['isOk'=>false];
     }
@@ -112,8 +114,9 @@ class DefaultController extends Controller
      * @Template()
      */
     public function potwierdzenieRejestracjiAction(Request $request){
-        return [];
+        return ['grupa'=>self::$lastGroup];
     }
+    private static $lastGroup = null;
     /**
      * @Route("/rejestracja.html", name="rejestracja")
      * @Template()
@@ -132,12 +135,16 @@ class DefaultController extends Controller
         $form = $this->createForm('kisRegBundle\Form\RejestracjaGrupaType', $grupa);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $outMsg = 'Wiadomość została wysłana';
-            $data = ['grupa'=>$grupa];
             $grupa->setPotwierdzono(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($grupa);
+            $em->flush();
+            $data = ['grupa'=>$grupa];
+            self::$lastGroup = $grupa;
             $message = \Swift_Message::newInstance()
                 ->setSubject('Potwierdzenie rejestracji na zajęcia')
                 ->setTo([$grupa->getEmail()=>$grupa->getOpiekun()])
+                ->setFrom('dziewczyny@fizyka.umk.pl')
                 ->setBody(
                     $this->renderView(
                         'kisRegBundle:Emails:potwierdzenieRejestracji.html.twig',
@@ -154,9 +161,6 @@ class DefaultController extends Controller
                 )
             ;
             $this->get('mailer')->send($message);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($grupa);
-            $em->flush();
             return $this->redirectToRoute('potwierdzenieRejestracji');
         }
         $out = ['form'=>$form->createView()];
@@ -203,6 +207,7 @@ class DefaultController extends Controller
             $message = \Swift_Message::newInstance()
                 ->setSubject('Wiadomość z serwisu')
                 ->setTo('bartek@comea.pl')
+                ->setFrom('dziewczyny@fizyka.umk.pl')
                 ->setBody(
                     $this->renderView(
                         'kisRegBundle:Emails:kontakt.html.twig',

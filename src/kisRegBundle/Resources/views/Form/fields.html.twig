@@ -20,7 +20,7 @@
             $('.zajeciaRow').each(function(){
                 var row = $(this);
                 var id = row.find('select').val();
-                var no = row.find('input[type=number]').val();
+                var no = parseInt(row.find('input[type=number]').val());
                 if(zajeciaToMax[id]<no){
                     no = zajeciaToMax[id];
                     row.find('input[type=number]').val(no)
@@ -50,21 +50,27 @@
             label.addClass('col-xs-12 col-sm-6');
             label.html(nazwa);
             var godziny = $('<select>');
-            godziny.addClass('col-xs-6 col-sm-3');
+            godziny.addClass('col-xs-6 col-sm-3 ui-corner-all');
             godziny.change(updateZajeciaIlosc);
-            var z = zajecia[nazwa];
-            for(i=0;i<z.length;i++){
+            for(i=0;i<zajecia[nazwa].length;i++){
                 var opt = $('<option>');
                 opt.attr('value',zajecia[nazwa][i][0]);
                 opt.html(zajecia[nazwa][i][1] + ' - ' + zajecia[nazwa][i][2] + ' zostało miejsc: '+zajecia[nazwa][i][3]);
                 godziny.append(opt);
             }
+            var godziny_label = '';
+            if(zajecia[nazwa].length==1){
+                godziny_label = $('<div>');
+                godziny_label.html(zajecia[nazwa][0][1] + ' - ' + zajecia[nazwa][0][2] + ' zostało miejsc: '+zajecia[nazwa][0][3]);
+                godziny_label.addClass('col-xs-6 col-sm-3');
+                godziny.css('display','none');
+            }
             var ilosc = $('<input type="number" value="0" min="0" />');
             ilosc.change(updateZajeciaIlosc);
-            ilosc.addClass('col-xs-6 col-sm-3');
+            ilosc.addClass('col-xs-6 col-sm-3  ui-corner-all');
             var row = $('<div>');
             row.addClass('row zajeciaRow');
-            row.append(label,godziny,ilosc,'<hr/>');
+            row.append(label,godziny_label,godziny,ilosc,'<hr/>');
             row.appendTo($('#wyborZajec'));
         }
     </script>

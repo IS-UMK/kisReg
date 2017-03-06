@@ -18,7 +18,9 @@
 {% endblock %}
 
 {% block body %}
-    Dziękujemy!
-    <hr /> Sprawdź pocztę!
-
+    <h2>Dziękujemy!</h2><hr />
+    <div style="font-size: large; margin: 10px; padding: 5px;" class="label label-warning col-xs-12">
+        Wysłaliśmy e-mail z potwierdzeniem na {% if grupa is defined and grupa is not null %}adres {{grupa.email}}{% else %}podane adres{% endif %} !<br />
+        Dopiero po jego kliknięciu zajęcia zostaną zarezerwowane!
+    </div>
 {% endblock %}

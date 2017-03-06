@@ -18,6 +18,24 @@
 {% endblock %}
 
 {% block body %}
-    potwierdzono !
-
+    {% if isOk %}
+        <h2>Rejestracja potwierdzona</h2>
+        <fieldset class="ui-corner-all">
+            <legend>Dane grupy</legend>
+            Opiekun: {{grupa.opiekun}}<br/>
+            Szkoła: {{grupa.szkola}}<br/>
+            Telefon: {{grupa.telefon}}<br/>
+            E-Mail: {{grupa.email}}<br/>
+        </fieldset>
+        <fieldset class="ui-corner-all">
+            <legend>Wybrane zajęcia</legend>
+            {% for zapis in grupa.zapisy if zapis.ilosc > 0 %}
+                {{ zapis.zajecia.nazwa }} miejsc: {{zapis.ilosc}}<hr/>
+            {% endfor %}
+        </fieldset>
+    {% else %}
+        <h2>Błąd w czasie rejestracji</h2>
+        <hr/>
+        Prosimy spróbować ponownie
+    {% endif %}
 {% endblock %}

@@ -1,7 +1,21 @@
 Witaj {{grupa.opiekun}}!<br/>
-miło nam wiedzieć, że jesteście z nami. Aby dokończyć rejestrację przejdź pod adres:<br/>
-address<br/>
+miło nam wiedzieć, że jesteście z nami. Aby dokończyć rejestrację kliknij:<br/><br/>
+<a style="-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+color: white;
+background-color:rgb(70, 185, 84);
+text-decoration: none;
+padding: 7px;
+margin: 7px;
+" href="{{url('rejestracjaPotwierdzona',{'id':grupa.id})}}">
+    [x] potwierdzam
+</a><br/><br/>
+Lub przejdź pod adres <a href="{{url('rejestracjaPotwierdzona',{'id':grupa.id})}}">{{url('rejestracjaPotwierdzona',{'id':grupa.id})}}</a> .
 <br/>
+<hr />
+Adres ten może być odwiedzany dowolną ilość razy, aby sprawdzić ewentualne zmiany.
+
 --<br/>
 pozdrawiamy<br/>
 Ścisłe dziewczyny z Fizyki
