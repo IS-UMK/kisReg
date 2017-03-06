@@ -1,4 +1,4 @@
 kisReg
 =============
 
-Rejestraja na imprezy
+Rejestracja na imprezy.
