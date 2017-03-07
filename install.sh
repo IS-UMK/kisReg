@@ -13,11 +13,3 @@ $php bin/console fos:user:create --super-admin admin bcelmer@is.umk.pl admin
 chmod -R 777 var
 chmod  777 .
 chmod  777 data.db3
-
-
-php bin/console cache:clear --no-warmup
-php bin/console cache:clear --no-warmup --env=prod
-php bin/console asset:install
-chmod -R 777 var
-chmod  777 .
-chmod  777 data.db3
