@@ -12,6 +12,7 @@ $php bin/console doctrine:schema:update --force ;
 $php bin/console fos:user:create --super-admin admin bcelmer@is.umk.pl admin ;
 $php bin/console asset:install ;
 $php bin/console assetic:dump ;
+$php bin/console doctrine:schema:update --force ;
 chmod -R 777 var ;
 chmod  777 . ;
 chmod  777 data.db3 ;

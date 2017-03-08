@@ -35,7 +35,7 @@
             <tr>
                 <th class="tb-th">Nazwa</th>
                 <th class="tb-th">Godziny</th>
-                <th class="tb-th">Limit</th>
+                <th class="tb-th">Zajęto miejsc</th>
                 <th class="tb-th">Akcje</th>
             </tr>
         </thead>
@@ -44,7 +44,7 @@
             <tr{% if podswietl is defined and  podswietl is not null and podswietl.id == zajecia.id %} class="nowy"{% endif %}>
                 <td class="tb-td"><a href="{{ path('zajecia', { 'id': zajecia.id }) }}">{{ zajecia.nazwa }}</a></td>
                 <td class="tb-td">{{ zajecia.poczatek|date('H:i') }}-{{ zajecia.koniec|date('H:i') }}</td>
-                <td class="tb-td">{{ zajecia.limitMiejsc|default('brak') }}</td>
+                <td class="tb-td">{{ zajecia.pozostaloMiejsc }} z {{ zajecia.limitMiejsc|default('brak') }}</td>
                 <td class="tb-td">
                     <div class="btn-group">
                         <a class="btn btn-success" href="{{ path('admin_zajecia_show', { 'id': zajecia.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>

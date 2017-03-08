@@ -38,6 +38,13 @@ class Zajecia
     private $opis;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="opisDlugi", type="text", nullable=true)
+     */
+    private $opisDlugi;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="poczatek", type="time")
@@ -246,5 +253,30 @@ class Zajecia
     public function __toString(){
 
         return $this->getNazwa();//.'('.date('H:i',$this->getPoczatek()).' - '.date('H:i',$this->getKoniec()).')';
+    }
+
+
+    /**
+     * Set opisDlugi
+     *
+     * @param string $opisDlugi
+     *
+     * @return Zajecia
+     */
+    public function setOpisDlugi($opisDlugi)
+    {
+        $this->opisDlugi = $opisDlugi;
+
+        return $this;
+    }
+
+    /**
+     * Get opisDlugi
+     *
+     * @return string
+     */
+    public function getOpisDlugi()
+    {
+        return $this->opisDlugi;
     }
 }

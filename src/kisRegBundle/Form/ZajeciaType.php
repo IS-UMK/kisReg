@@ -22,6 +22,13 @@ class ZajeciaType extends AbstractType
                     'class' => 'tinymce',
                     'height' => '600px'
                 ]
+            ])->add('opisDlugi',
+            TextareaType::class,
+            [
+                'attr' => [
+                    'class' => 'tinymce',
+                    'height' => '600px'
+                ]
             ])->add('poczatek')->add('koniec')->add('limitMiejsc')        ;
     }
 
