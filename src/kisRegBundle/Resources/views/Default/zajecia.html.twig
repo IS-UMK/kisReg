@@ -35,7 +35,7 @@
         {% endfor %}
     </div>
     <div class="col-xs-12 col-md-8 col-lg-10">
-        <h1 style="float: left;align: left; ">{{zajecia.nazwa}}</h1>
+        <h1 style="float: left;align: left; ">{{zajecia.nazwa}}<br/><small>{{zajecia.opis|raw}}</small></h1>
         <div style="float: right;align: right;">
             {% for inne in podobne|sortbyfield('poczatek') %}
                 {% if not loop.first %}
@@ -45,6 +45,6 @@
             {% endfor %}
         </div>
         <hr style="clear:both;" />
-        <div>{{zajecia.opis|raw}}</div>
+        <div>{{zajecia.opisDlugi|raw}}</div>
     </div>
 {% endblock %}
