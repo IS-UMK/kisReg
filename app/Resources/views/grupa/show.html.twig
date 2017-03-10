@@ -2,13 +2,23 @@
 
 {% block bodyTopMenu %}{% endblock %}
 {% block body %}
-    <h1>Grupa</h1>
+    <h1 style="float: left;">Grupa</h1>
+    <div class="btn-group" style="float: right;">
+        <a class="btn btn-success" style="width: 80px;" href="{{ path('admin_grupa_edit', { 'id': grupa.id }) }}">Edytuj</a>
+        {{ form_start(delete_form,{attr:{style:'display:none'}}) }}{{ form_end(delete_form) }}
+        <button onclick="$(this).prev().submit();" class="btn btn-danger" style="width: 80px;">Usuń</button>
 
+    </div>
+    <hr style="clear:both;" />
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ grupa.id }}</td>
+            </tr>
+            <tr>
+                <th>Potwierdzono</th>
+                <td>{% if grupa.potwierdzono %}<span class="label label-success">TAK</span>{% else %}<span class="label label-danger">NIE</span>{% endif %}</td>
             </tr>
             <tr>
                 <th>Opiekun</th>
@@ -23,23 +33,22 @@
                 <td>{{ grupa.telefon }}</td>
             </tr>
             <tr>
+                <th>Szkoła</th>
+                <td>{{ grupa.szkola }}</td>
+            </tr>
+            <tr>
                 <th>Uwagi</th>
-                <td>{{ grupa.uwagi }}</td>
+                <td>{{ grupa.uwagi|raw }}</td>
+            </tr>
+            <tr>
+                <th>Zapisano na</th>
+                <td>
+                    {% for zapis in grupa.zapisy if zapis.ilosc > 0%}
+                        {{zapis.zajecia.nazwa}} : {{zapis.ilosc}} <br/>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_grupa_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_grupa_edit', { 'id': grupa.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

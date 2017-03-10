@@ -2,21 +2,11 @@
 
 {% block bodyTopMenu %}{% endblock %}
 {% block body %}
-    <h1>Grupa edit</h1>
-
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <div style="float:right;" class="btn-group">
+            <input class="btn btn-success" type="submit" value="Zapisz" />
+            <a class="btn btn-warning" href="{{ path('admin_grupa_index') }}">Anuluj</a>
+        </div>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_grupa_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

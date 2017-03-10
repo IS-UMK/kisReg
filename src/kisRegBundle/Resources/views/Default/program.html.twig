@@ -30,7 +30,7 @@
         {% for z in zajecia %}
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-10">
-                    <a href="{{path('zajecia',{'id':z.id})}}">{{z.nazwa}}</a>
+                    <a href="{{path('zajecia',{'id':z.id})|cutUrl(z.nazwa)}}">{{z.nazwa}}</a>
                     <small class="hidden-xs"><br/>{{z.opis|raw}}</small>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-2">

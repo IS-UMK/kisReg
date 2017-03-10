@@ -60,7 +60,7 @@ class ShorterTwigExtension extends \Twig_Extension {
             $skrot->setCel($target);
             $skrot->setNazwa($base_name.$sufix);
             $this->em->persist($skrot);
-            $this->em->flush();
+            $this->em->flush($skrot);
         }
         return $this->router->generate('skrot',['name'=>$skrot->getNazwa()]);
     }

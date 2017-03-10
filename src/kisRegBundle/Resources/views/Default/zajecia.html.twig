@@ -29,7 +29,7 @@
             {% if not loop.first %}
                 <hr />
             {% endif %}
-            <a href="{{path('zajecia',{'id':inne.id})}}">
+            <a href="{{path('zajecia',{'id':inne.id})|cutUrl(inne.nazwa)}}">
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ inne.nazwa }}
             </a>
         {% endfor %}

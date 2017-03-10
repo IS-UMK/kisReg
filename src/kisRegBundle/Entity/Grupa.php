@@ -264,4 +264,7 @@ class Grupa
     {
         return $this->potwierdzono;
     }
+    public function __toString(){
+        return $this->opiekun.'@'.$this->szkola;
+    }
 }

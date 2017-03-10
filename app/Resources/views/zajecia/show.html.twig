@@ -2,48 +2,41 @@
 
 {% block bodyTopMenu %}{% endblock %}
 {% block body %}
-    <h1>Zajecia</h1>
-
-    <table>
+    <h1>{{ zajecia.nazwa }} - {% if zajecia.poczatek %}{{ zajecia.poczatek|date('H:i') }}{% endif %} - zapisane grupy</h1>
+    <table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
+        <thead>
+            <tr>
+                <th class="tb-th">Potwierdzono</th>
+                <th class="tb-th">Opiekun</th>
+                <th class="tb-th">E-Mail</th>
+                <th class="tb-th">Telefon</th>
+                <th class="tb-th">Szkoła</th>
+                <th class="tb-th">Uwagi</th>
+                <th class="tb-th">Akcje</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ zajecia.id }}</td>
-            </tr>
-            <tr>
-                <th>Nazwa</th>
-                <td>{{ zajecia.nazwa }}</td>
-            </tr>
-            <tr>
-                <th>Opis</th>
-                <td>{{ zajecia.opis }}</td>
-            </tr>
-            <tr>
-                <th>Poczatek</th>
-                <td>{% if zajecia.poczatek %}{{ zajecia.poczatek|date('H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Koniec</th>
-                <td>{% if zajecia.koniec %}{{ zajecia.koniec|date('H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Limitmiejsc</th>
-                <td>{{ zajecia.limitMiejsc }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_zajecia_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_zajecia_edit', { 'id': zajecia.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {% for zapis in zajecia.zapisy if zapis.ilosc > 0 %}
+        <tr{% if podswietl is defined and  podswietl is not null and podswietl.id == zapis.grupa.id %} class="nowy"{% endif %}>
+            <td class="tb-td">{% if zapis.grupa.potwierdzono %}<div class="label label-success">TAK</div>{% else %}<div class="label label-danger">NIE</div>{% endif %}</td>
+            <td class="tb-td">{{ zapis.grupa.opiekun }}</td>
+            <td class="tb-td"><a href="mailto:{{ zapis.grupa.email }}">{{ zapis.grupa.email }}</a></td>
+            <td class="tb-td"><a href="tel:{{ zapis.grupa.telefon }}">{{ zapis.grupa.telefon }}</a></td>
+            <td class="tb-td">{{ zapis.grupa.szkola }}</td>
+            <td class="tb-td">{{ zapis.grupa.uwagi|raw }}</td>
+            <td class="tb-td">
+                <div class="btn-group">
+                    <a class="btn btn-success" href="{{ path('admin_grupa_show', { 'id': zapis.grupa.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                    <a class="btn btn-primary" href="{{ path('admin_grupa_edit', { 'id': zapis.grupa.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    {{ render(controller(
+                        'kisRegBundle:Grupa:createDeleteFormView',
+                        { 'grupa': zapis.grupa.id }
+                    )) }}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {# include '::grupa/table.html.twig' #}
 {% endblock %}

@@ -1,16 +1,24 @@
 {% use 'kisRegBundle:Form:Plik.html.twig' %}
 {# {% use 'kisRegBundle:Form:Encje.html.twig' %} #}
+{% block _kisregbundle_grupa_zapisy_widget -%}
+    {% for child in form %}
+        <div>
+            {{ child.vars.data.zajecia.nazwa }} {{ child.vars.data.zajecia.poczatek|date('H:i') }} {{ child.vars.data.zajecia.koniec|date('H:i') }} wolnych: {{ child.vars.data.zajecia.pozostaloMiejsc }}<br/>
+            {{ form_widget(child.children.ilosc) }}
+        </div>
+    {% endfor %}
+{%- endblock _kisregbundle_grupa_zapisy_widget %}
 
 {% block _kisregbundle_rejestracjagrupa_zapisy_widget -%}
     <script>
         var zajecia = {};
         var zajeciaToMax = {};
         var zajeciaIds = [];
-        function addZajecia(id,nazwa,start,stop,limitMiejsc){
+        function addZajecia(id,nazwa,start,stop,limitMiejsc,url){
             if(typeof zajecia[nazwa] === 'undefined'){
                 zajecia[nazwa] = [];
             }
-            zajecia[nazwa].push([id,start,stop,limitMiejsc]);
+            zajecia[nazwa].push([id,start,stop,limitMiejsc,url]);
             zajeciaIds.push(id);
             zajeciaToMax[id] = limitMiejsc;
         }
@@ -30,13 +38,17 @@
         }
     </script>
     {% for child in form %}
+        {% set zajecia=child.vars.data.zajecia %}
+        {% set zid=zajecia.id %}
+        {% set znazwa=zajecia.nazwa %}
         <script>
             addZajecia(
                 "{{ child.children.ilosc.vars.id|e('js') }}",
-                "{{ child.vars.data.zajecia.nazwa|e('js') }}",
-                "{{ child.vars.data.zajecia.poczatek|date('H:i')|e('js') }}",
-                "{{ child.vars.data.zajecia.koniec|date('H:i')|e('js') }}",
-                "{{ child.vars.data.zajecia.pozostaloMiejsc }}"
+                "{{ zajecia.nazwa|e('js') }}",
+                "{{ zajecia.poczatek|date('H:i')|e('js') }}",
+                "{{ zajecia.koniec|date('H:i')|e('js') }}",
+                "{{ zajecia.pozostaloMiejsc }}",
+                "{{path('zajecia',{'id':zid})|cutUrl(znazwa)|e('js')}}"
             );
         </script>
         <div style="display:none;">
@@ -46,8 +58,10 @@
     <div id="wyborZajec"></div>
     <script>
         for(nazwa in zajecia){
-            var label = $('<div>');
+            var label = $('<a>');
             label.addClass('col-xs-12 col-sm-6');
+            label.attr('href',zajecia[nazwa][0][4]);
+            label.attr('target','_blank');
             label.html(nazwa);
             var godziny = $('<select>');
             godziny.addClass('col-xs-6 col-sm-3 ui-corner-all');

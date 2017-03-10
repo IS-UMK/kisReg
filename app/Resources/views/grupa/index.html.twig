@@ -26,40 +26,5 @@
 {% endblock %}
 
 {% block body %}
-    <h1 style="float: left;"><i class="fa fa-address-book-o" aria-hidden="true"></i> Grupy</h1>
-    <a  style="float: right;" class="btn btn-success" href="{{ path('admin_grupa_new') }}"><i class="fa fa-plus" aria-hidden="true"></i>  Dodaj</a>
-    <div style="clear: both;"></div>
-    <table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
-        <thead>
-            <tr>
-                <th class="tb-th">Opiekun</th>
-                <th class="tb-th">E-Mail</th>
-                <th class="tb-th">Telefon</th>
-                <th class="tb-th">Szkoła</th>
-                <th class="tb-th">Uwagi</th>
-                <th class="tb-th">Akcje</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for grupa in grupas|sortbyfield('opiekun') %}
-            <tr{% if podswietl is defined and  podswietl is not null and podswietl.id == grupa.id %} class="nowy"{% endif %}>
-                <td class="tb-td">{{ grupa.opiekun }}</td>
-                <td class="tb-td"><a href="mailto:{{ grupa.email }}">{{ grupa.email }}</a></td>
-                <td class="tb-td"><a href="tel:{{ grupa.telefon }}">{{ grupa.telefon }}</a></td>
-                <td class="tb-td"></td>
-                <td class="tb-td">{{ grupa.uwagi|raw }}</td>
-                <td class="tb-td">
-                    <div class="btn-group">
-                        <a class="btn btn-success" href="{{ path('admin_grupa_show', { 'id': grupa.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
-                        <a class="btn btn-primary" href="{{ path('admin_grupa_edit', { 'id': grupa.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                        {{ render(controller(
-                            'kisRegBundle:Grupa:createDeleteFormView',
-                            { 'grupa': grupa.id }
-                        )) }}
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% include '::grupa/table.html.twig' %}
 {% endblock %}
