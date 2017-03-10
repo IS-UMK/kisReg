@@ -67,66 +67,68 @@
             <div style="background-color: #f3f3f3; margin: 10px 0px;padding: 20px 0px;">
                 <div class="container" id="mainLinkWrapper" role="main">
                     <div class="row" id="mainLink" style="font-size: large;">
-                        <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
-                            <a href="http://www.dziewczynynapolitechniki.pl/">
-                                {% image
-                                    '../app/Resources/public/images/girls_icon.png'
-                                %}
-                                    <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
-                                {% endimage %}
-                                <div style="padding-top: 19px;">
-                                    Dziewczyny do ścisłych
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
-                            <a href="http://www.fizyka.umk.pl/">
-                                {% image
-                                    '../app/Resources/public/images/fizyka_icon.png'
-                                %}
-                                    <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
-                                {% endimage %}
-                                <div style="padding-top: 10px;">
-                                    Wydział Fizyki, Astronomii<br > i Informatyki Stosowanej UMK
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
-                            <a href="http://www.is.umk.pl/">
-                                {% image
-                                    '../app/Resources/public/images/kis_icon.png'
-                                %}
-                                    <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
-                                {% endimage %}
-                                <div style="padding-top: 19px;">
-                                    Informatyka Stosowana UMK
-                                </div>
-                            </a>
-                        </div>
+                        {% block bigBanners %}
+                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                                <a href="http://www.dziewczynynapolitechniki.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/girls_icon.png'
+                                    %}
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                    <div style="padding-top: 19px;">
+                                        Dziewczyny do ścisłych
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                                <a href="http://www.fizyka.umk.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/fizyka_icon.png'
+                                    %}
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                    <div style="padding-top: 10px;">
+                                        Wydział Fizyki, Astronomii<br > i Informatyki Stosowanej UMK
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                                <a href="http://www.is.umk.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/kis_icon.png'
+                                    %}
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                    <div style="padding-top: 19px;">
+                                        Informatyka Stosowana UMK
+                                    </div>
+                                </a>
+                            </div>
 
-                        <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
-                            <a href="http://www.ca.umk.pl/">
-                                {% image
-                                    '../app/Resources/public/images/ca_icon.png'
-                                %}
-                                    <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
-                                {% endimage %}
-                                <div style="padding-top: 19px;">
-                                    Centrum Astronomii UMK
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-xs-12 btn btn-default">
-                            <a href="http://www.umk.pl/">
-                                {% image
-                                    '../app/Resources/public/images/umk_icon.png'
-                                %}
-                                    <img style="max-width:64px;" src="{{ asset_url }}" />
-                                {% endimage %}
-                                    Uniwersytet Mikołaja Kopernika
+                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                                <a href="http://www.ca.umk.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/ca_icon.png'
+                                    %}
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                    <div style="padding-top: 19px;">
+                                        Centrum Astronomii UMK
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 btn btn-default">
+                                <a href="http://www.umk.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/umk_icon.png'
+                                    %}
+                                        <img style="max-width:64px;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                        Uniwersytet Mikołaja Kopernika
 
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -172,14 +174,15 @@
                     </div>
                 </div>
             </div>
-            {#
-                <hr style="border-color: #373737;" />
-                <div class="container" id="footerCWrapper" role="footer">
-                    <div class="row" id="footerC" style="text-align: right; color: #434343;">
-                        <i>Bartosz Celmer &lt;bcelmer(at)is.umk.pl&gt;</i>
+            <!-- <div style="border-top: 1px solid #434343;">
+                <div class="container" style="">
+                    <div class="row" style="text-align: right; color: #434343;">
+                        by <i>Bartosz Celmer &lt;bcelmer(at)is.umk.pl&gt;</i> find on <a style="color: #434343" href="https://github.com/IS-UMK/kisReg">
+                            <i class="fa fa-github"></i>
+                        </a>
                     </div>
                 </div>
-            #}
+            </div> -->
         </div>
         {% block javascripts %}
             {{
