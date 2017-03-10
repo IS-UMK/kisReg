@@ -206,7 +206,7 @@ class DefaultController extends Controller
             $data = $form->getData();
             $message = \Swift_Message::newInstance()
                 ->setSubject('Wiadomość z serwisu')
-                ->setTo('bartek@comea.pl')
+                ->setTo(['dziewczyny@fizyka.umk.pl'=>'Dziewczyny','bartek@comea.pl'=>'Bartek'])
                 ->setFrom('dziewczyny@fizyka.umk.pl')
                 ->setBody(
                     $this->renderView(
