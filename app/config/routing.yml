@@ -2,5 +2,13 @@ app:
     resource: "@kisRegBundle/Controller/"
     type:     annotation
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user_1:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_2:
+    prefix: /resetting
+    resource:  "@FOSUserBundle/Resources/config/routing/resetting.xml"
+
+fos_user_3:
+    prefix: /profile
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
