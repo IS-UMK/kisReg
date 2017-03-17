@@ -68,7 +68,7 @@
                 <div class="container" id="mainLinkWrapper" role="main">
                     <div class="row" id="mainLink" style="font-size: large;">
                         {% block bigBanners %}
-                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
                                 <a href="http://www.dziewczynynapolitechniki.pl/">
                                     {% image
                                         '../app/Resources/public/images/girls_icon.png'
@@ -80,7 +80,20 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
+                                <a href="http://www.umk.pl/">
+                                    {% image
+                                        '../app/Resources/public/images/umk_icon.png'
+                                    %}
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
+                                    {% endimage %}
+                                    <div style="padding-top: 19px;">
+                                        Uniwersytet Mikołaja Kopernika
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
                                 <a href="http://www.fizyka.umk.pl/">
                                     {% image
                                         '../app/Resources/public/images/fizyka_icon.png'
@@ -92,20 +105,19 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
-                                <a href="http://www.is.umk.pl/">
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
+                                <a href="http://www.fizyka.umk.pl/fizyka/">
                                     {% image
-                                        '../app/Resources/public/images/kis_icon.png'
+                                        '../app/Resources/public/images/fizyka_icon.png'
                                     %}
                                         <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
                                     {% endimage %}
-                                    <div style="padding-top: 19px;">
-                                        Informatyka Stosowana UMK
+                                    <div style="padding-top: 10px;">
+                                        Instytut Fizyki<br />UMK
                                     </div>
                                 </a>
                             </div>
-
-                            <div class="col-xs-12 col-md-6 col-lg-3 btn btn-default">
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
                                 <a href="http://www.ca.umk.pl/">
                                     {% image
                                         '../app/Resources/public/images/ca_icon.png'
@@ -117,15 +129,16 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-xs-12 btn btn-default">
-                                <a href="http://www.umk.pl/">
+                            <div class="col-xs-12 col-md-6 col-lg-4 btn btn-default">
+                                <a href="http://www.is.umk.pl/">
                                     {% image
-                                        '../app/Resources/public/images/umk_icon.png'
+                                        '../app/Resources/public/images/kis_icon.png'
                                     %}
-                                        <img style="max-width:64px;" src="{{ asset_url }}" />
+                                        <img style="max-width:64px; float: left;" src="{{ asset_url }}" />
                                     {% endimage %}
-                                        Uniwersytet Mikołaja Kopernika
-
+                                    <div style="padding-top: 19px;">
+                                        Informatyka Stosowana UMK
+                                    </div>
                                 </a>
                             </div>
                         {% endblock %}
@@ -143,7 +156,7 @@
                 <div class="row" id="footer">
                     {% block footer %}
                     <div class="col-xs-12" style="text-align: center;">
-                        <h4 style="font-variant: small-caps;">Wydział Fizyki, Astronomii i Informatyki Stosowanej <br/> Katedra Informatyki Stosowanej</h4>
+                        <h4 style="font-variant: small-caps;">Wydział Fizyki, Astronomii i Informatyki Stosowanej</h4>
                         <hr style="border-color: rgb(45, 174, 247); width: 40px;"/>
                     </div>
                     {% endblock %}
@@ -176,11 +189,16 @@
             </div>
             <div style="border-top: 1px solid #535252;">
                 <div class="container" style="">
-                    <div class="row" style="text-align: right; color: #535252;">
-                        <i>bcelmer(at)is.umk.pl</i>&nbsp;&nbsp;
-                        <a style="color: #535252;" href="https://github.com/IS-UMK/kisReg">
-                            <i class="fa fa-github"></i>
-                        </a>
+                    <div class="row" style="text-align: right;">
+                        <a style="font-variant: small-caps; font-size: 1em;" href="http://www.is.umk.pl/">
+                            Katedra Informatyki Stosowanej
+                        </a><br/>
+                        <a style="font-size: 1em;" href="https://github.com/IS-UMK/kisReg">
+                            źródło możesz podejżeć na <i style="font-size: 1.3em;" class="fa fa-github"></i> GitHub
+                        </a><br/>
+                            <i style="font-size: 1em;">
+                                bcelmer(at)is.umk.pl
+                            </i>
                     </div>
                 </div>
             </div>
