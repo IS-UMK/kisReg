@@ -9,7 +9,24 @@
 
 {% block body %}
     {% if pytanie %}
-        <div id="qWrapper" style="display:none;">
+        <div id="qWrapper" style="display:none; position: relative;">
+            <div style="height: 3.8em; margin-bottom: 7px;padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
+                <div id="reset" class="col-xs-3 btn btn-default" onclick="$('#punkty').html(0);$.cookie('punkty',0);$('#pytanie').html(1);$.cookie('pytanie',1);$.removeCookie('fiftyFifty');$.removeCookie('call');$.removeCookie('peaople');$('#fiftyFifty').fadeTo(0,1);$('#call').fadeTo(0,1);$('#peaople').fadeTo(0,1);">
+                    Punkty/Pytanie: <span id="punkty">0</span>/<span id="pytanie">0</span>
+                </div>
+                <div class="col-xs-1"></div>
+                <div id="fiftyFifty" class="col-xs-3 btn btn-default" onclick="$.cookie('fiftyFifty',1);$(this).fadeTo(500,0);fiftyFifty();">
+                    50 : 50
+                </div>
+<!--                <div class="col-xs-1"></div>
+                <div id="call" class="col-xs-2 btn btn-default" onclick="$.cookie('call',1);$(this).fadeTo(500,0);$('#help').fadeIn();">
+                    <i class="fa fa-phone-square" aria-hidden="true"></i>
+                </div> -->
+                <div class="col-xs-1"></div>
+                <div id="peaople" class="col-xs-3 btn btn-default" onclick="$.cookie('peaople',1);$(this).fadeTo(500,0);">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                </div>
+            </div>
             <div id='question' style="height: 140px;text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">
                 <h3>{{ pytanie.tresc|raw }}</h3>
             </div>
@@ -36,6 +53,16 @@
                 </div>
             </div>
 
+            <div onclick="$(this).fadeOut();" id="help" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px;  background:#aaaaaa; color:#272727;">
+                Podpowiedź<hr/>
+                <h4>{{pytanie.id}}</h4>
+            </div>
+
+            <div onclick="$('#reset').click();$(this).slideUp();$('#qWrapper').slideUp('normal',function(){location.reload();});" id="final" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px;  background:#272777; color:#aaaaaa;">
+                <h2>Koniec gry!</h2>
+                <h4>Ilość punktów: <span id="finalScore">X</span></h4>
+            </div>
+
             <div id="done" style="border: 2px solid black; z-index: 999; display: none; position: fixed; bottom: 20px; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
                 <h3 id="result"></h3>
                 <div class="col-xs-6">
@@ -45,11 +72,43 @@
                 </div>
             </div>
             <hr />
-            Pozostało pytań: {{pozostaloPytan}}
+            Pozostało pytań w bazie: {{pozostaloPytan}}
         </div>
         <script>
+            function shuffle(a) {
+                for (let i = a.length; i; i--) {
+                    let j = Math.floor(Math.random() * i);
+                    [a[i - 1], a[j]] = [a[j], a[i - 1]];
+                }
+            }
+            function fiftyFifty(){
+                var elem = [];
+                {% if pytanie.poprawnaOdpowiedz|upper!='A' %}elem.push('A');{% endif %}
+                {% if pytanie.poprawnaOdpowiedz|upper!='B' %}elem.push('B');{% endif %}
+                {% if pytanie.poprawnaOdpowiedz|upper!='C' %}elem.push('C');{% endif %}
+                {% if pytanie.poprawnaOdpowiedz|upper!='D' %}elem.push('D');{% endif %}
+                shuffle(elem);
+                shuffle(elem);
+                shuffle(elem);
+                var e1 = elem[0];
+                var e2 = elem[1];
+                $('*[anwser='+e1+']').fadeTo(500,0);
+                $('*[anwser='+e2+']').fadeTo(500,0);
+            }
             $().ready(function(){
                 $('#qWrapper').slideDown();
+                if($.cookie('punkty') == undefined)
+                    $.cookie('punkty',0);
+                if($.cookie('pytanie') == undefined)
+                    $.cookie('pytanie',1);
+                if($.cookie('fiftyFifty') != undefined)
+                    $('#fiftyFifty').fadeTo(0,0);
+                if($.cookie('call') != undefined)
+                    $('#call').fadeTo(0,0);
+                if($.cookie('peaople') != undefined)
+                    $('#peaople').fadeTo(0,0);
+                $('#punkty').html($.cookie('punkty'));
+                $('#pytanie').html($.cookie('pytanie'));
                 $('*[anwser]').click(function(){
                     $('#confirm').fadeIn();
                     $('#wybranaObpowiedz').html($(this).attr('anwser'));
@@ -59,23 +118,30 @@
                     var c="{{pytanie.poprawnaOdpowiedz|upper}}";
                     $('#confirm').fadeOut();
                     setTimeout(function(){
-                        $('*[anwser='+a+']').css({'background':'rgb(222,192,63)','color':'black'});
+                        $('*[anwser='+a+']').animate({'backgroundColor':'rgb(222,192,63)','color':'black'},666);
                     },200);
                     setTimeout(function(){
-                        $('#done').slideDown();
+                        $.cookie('pytanie',parseInt($.cookie('pytanie')) + 1);
+                        if(parseInt($.cookie('pytanie'))>5){
+                            $('#final').slideDown();
+                        } else {
+                            $('#done').slideDown();
+                        }
                     },2500);
                     if(a==c){
                         $('#result').html('Poprawnie!');
                         setTimeout(function(){
-                            $('*[anwser='+a+']').css({'background':'rgb(63,255,63)','color':'black'});
-                            //$('#done').css({'border-color':'rgb(32,128,32)'});
+                            $('*[anwser='+a+']').animate({'backgroundColor':'rgb(63,255,63)','color':'black'},666);
+                            $.cookie('punkty',parseInt($.cookie('punkty')) + 1);
+                            $('#punkty').html($.cookie('punkty'));
+                            $('#finalScore').html($.cookie('punkty'));
                         },2500);
                     } else{
                         $('#result').html('Niestety błędnie!');
                         setTimeout(function(){
-                            $('*[anwser='+c+']').css({'background':'rgb(63,255,63)','color':'black'});
-                            $('*[anwser='+a+']').css({'background':'rgb(255,63,63)','color':'black'});
-                            //$('#done').css({'border-color':'rgb(128,32,32)'});
+                            $('*[anwser='+c+']').animate({'backgroundColor':'rgb(63,255,63)','color':'black'},666);
+                            $('*[anwser='+a+']').animate({'backgroundColor':'rgb(255,63,63)','color':'black'},666);
+                            $('#finalScore').html($.cookie('punkty'));
                         },2500);
                     }
                 });

@@ -77,7 +77,6 @@ class DefaultController extends Controller
             $em->flush($question);
         }
 
-
         return ['pytanie'=>$question,'pozostaloPytan'=>$repo->countActive()];
     }
     /**
