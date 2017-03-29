@@ -1,0 +1,28 @@
+<h1 style="float: left;"><i class="fa  fa-question-circle" aria-hidden="true"></i> Pytania do quizu</h1>
+<a  style="float: right;" class="btn btn-success" href="{{ path('admin_pytanie_new') }}"><i class="fa fa-plus" aria-hidden="true"></i>  Dodaj</a>
+<div style="clear: both;"></div>
+<table class="ui-corner-all" cellspan="0" cellpadding="5" style="width: 100%;">
+    <thead>
+        <tr>
+            <th class="tb-th">Pytanie</th>
+            <th class="tb-th">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for pytanie in pytanies %}
+        <tr{% if podswietl is defined and podswietl is not null and podswietl.id == pytanie.id %} class="nowy"{% endif %}>
+            <td class="tb-td">{{ pytanie.tresc }}</td>
+            <td class="tb-td">
+                <div class="btn-group">
+                    <a class="btn btn-success" href="{{ path('admin_pytanie_show', { 'id': pytanie.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+                    <a class="btn btn-primary" href="{{ path('admin_pytanie_edit', { 'id': pytanie.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    {{ render(controller(
+                        'kisRegBundle:Pytanie:createDeleteFormView',
+                        { 'pytanie': pytanie.id }
+                    )) }}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

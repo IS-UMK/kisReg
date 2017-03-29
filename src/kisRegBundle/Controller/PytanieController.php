@@ -133,4 +133,13 @@ class PytanieController extends Controller
             ->getForm()
         ;
     }
+    /**
+     * @Route("/{id}/deleteForm", name="admin_pytanie_delete_form")
+     */
+    public function createDeleteFormViewAction(Pytanie $pytanie)
+    {
+        return $this->render('kisRegBundle:Admin:Common/delete_form.html.twig', array(
+            'form' => $this->createDeleteForm($pytanie)->createView(),
+        ));
+    }
 }

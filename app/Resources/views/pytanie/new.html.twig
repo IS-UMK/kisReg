@@ -2,16 +2,14 @@
 
 {% block bodyTopMenu %}{% endblock %}
 {% block body %}
-    <h1>Pytanie creation</h1>
+    <h1>Dodaj pytanie</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <div class="btn-group">
+            <a class="btn btn-danger" href="{{ path('admin_pytanie_index')}}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+            <button type="submit" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj</button>
+        </div>
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_pytanie_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

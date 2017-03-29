@@ -7,55 +7,37 @@
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ pytanie.id }}</td>
-            </tr>
-            <tr>
-                <th>Tresc</th>
+                <th>Treść</th>
                 <td>{{ pytanie.tresc }}</td>
             </tr>
             <tr>
-                <th>Odpowiedza</th>
+                <th>Odpowiedź A</th>
                 <td>{{ pytanie.odpowiedzA }}</td>
             </tr>
             <tr>
-                <th>Odpowiedzb</th>
+                <th>Odpowiedź B</th>
                 <td>{{ pytanie.odpowiedzB }}</td>
             </tr>
             <tr>
-                <th>Odpowiedzc</th>
+                <th>Odpowiedź C</th>
                 <td>{{ pytanie.odpowiedzC }}</td>
             </tr>
             <tr>
-                <th>Odpowiedzd</th>
+                <th>Odpowiedź D</th>
                 <td>{{ pytanie.odpowiedzD }}</td>
             </tr>
             <tr>
-                <th>Poprawnaodpowiedz</th>
+                <th>Poprawna odpowiedź</th>
                 <td>{{ pytanie.poprawnaOdpowiedz }}</td>
-            </tr>
-            <tr>
-                <th>Kolejnosc</th>
-                <td>{{ pytanie.kolejnosc }}</td>
-            </tr>
-            <tr>
-                <th>Aktywne</th>
-                <td>{% if pytanie.aktywne %}Yes{% else %}No{% endif %}</td>
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_pytanie_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_pytanie_edit', { 'id': pytanie.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="btn-group">
+        <a class="btn btn-success" href="{{ path('admin_pytanie_index')}}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        <a class="btn btn-primary" href="{{ path('admin_pytanie_edit', { 'id': pytanie.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+        {{ render(controller(
+            'kisRegBundle:Pytanie:createDeleteFormView',
+            { 'pytanie': pytanie.id }
+        )) }}
+    </div>
 {% endblock %}

@@ -1,54 +1,30 @@
 {% extends 'base.html.twig' %}
 
-
 {% block bodyTopMenu %}{% endblock %}
-{% block body %}
-    <h1>Pytanies list</h1>
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        .tb-th {
+            padding: 7px;
+            border-bottom: 1px solid rgb(177, 177, 177);
+            background-color: rgba(0,0,0,0.05);
+        }
+        .tb-td {
+            padding: 7px;
+            transition-duration: 0.5s;
+        }
+        tr:hover .tb-td {
+            background-color: rgba(0,0,0,0.1);
+        }
+        tr:nth-child(2n) td{
+            background-color: rgba(0,0,0,0.05);
+        }
+        tr.nowy td {
+            background-color: rgba(94, 213, 30, 0.66);
+        }
+    </style>
+{% endblock %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Tresc</th>
-                <th>Odpowiedza</th>
-                <th>Odpowiedzb</th>
-                <th>Odpowiedzc</th>
-                <th>Odpowiedzd</th>
-                <th>Poprawnaodpowiedz</th>
-                <th>Kolejnosc</th>
-                <th>Aktywne</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for pytanie in pytanies %}
-            <tr>
-                <td><a href="{{ path('admin_pytanie_show', { 'id': pytanie.id }) }}">{{ pytanie.id }}</a></td>
-                <td>{{ pytanie.tresc }}</td>
-                <td>{{ pytanie.odpowiedzA }}</td>
-                <td>{{ pytanie.odpowiedzB }}</td>
-                <td>{{ pytanie.odpowiedzC }}</td>
-                <td>{{ pytanie.odpowiedzD }}</td>
-                <td>{{ pytanie.poprawnaOdpowiedz }}</td>
-                <td>{{ pytanie.kolejnosc }}</td>
-                <td>{% if pytanie.aktywne %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_pytanie_show', { 'id': pytanie.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_pytanie_edit', { 'id': pytanie.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <ul>
-        <li>
-            <a href="{{ path('admin_pytanie_new') }}">Create a new pytanie</a>
-        </li>
-    </ul>
+{% block body %}
+    {% include '::pytanie/table.html.twig' %}
 {% endblock %}
