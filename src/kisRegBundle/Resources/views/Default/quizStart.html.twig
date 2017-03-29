@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyTopMenu %}{% endblock %}
+{% block body %}
+    Lista pytań przetasowana! Pytania odświerzone!
+    <a class="btn btn-info" href="{{path('quiz')}}">
+        <i class="fa fa-question-circle" aria-hidden="true"></i> QUIZ - Rozpocznij
+    </a>
+{% endblock %}

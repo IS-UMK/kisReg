@@ -44,7 +44,7 @@
         </script>
         {% block headEnd %}{% endblock %}
     </head>
-    <body>
+    <body {% block bodyAttr %}{% endblock %}>
         {% block bodyTop %}
             {% if is_granted('ROLE_ADMIN') %}
                 {% include 'admin-nav.html.twig' %}
@@ -151,58 +151,60 @@
                 {% block body %}{% endblock %}
             </div>
         </div>
-        <div style="background-color: #272727; color:#888888;padding-top:40px;">
-            <div class="container" id="footerWrapper" role="footer">
-                <div class="row" id="footer">
-                    {% block footer %}
-                    <div class="col-xs-12" style="text-align: center;">
-                        <h4 style="font-variant: small-caps;">Wydział Fizyki, Astronomii i Informatyki Stosowanej</h4>
-                        <hr style="border-color: rgb(45, 174, 247); width: 40px;"/>
+        {% block bodyFooter %}
+            <div style="background-color: #272727; color:#888888;padding-top:40px;">
+                <div class="container" id="footerWrapper" role="footer">
+                    <div class="row" id="footer">
+                        {% block footer %}
+                        <div class="col-xs-12" style="text-align: center;">
+                            <h4 style="font-variant: small-caps;">Wydział Fizyki, Astronomii i Informatyki Stosowanej</h4>
+                            <hr style="border-color: rgb(45, 174, 247); width: 40px;"/>
+                        </div>
+                        {% endblock %}
+                        <div class="col-xs-12 col-md-4" style="text-align: center;">
+                            <address>
+                                Instytut Fizyki<br/>
+                                ul. Grudziądzka 5/7<br/>
+                                87 - 100 Toruń
+                            </address>
+                        </div>
+                        <div class="col-xs-12 col-md-4" style="text-align: center;">
+                            <a href="mailto:dziewczyny@fizyka.umk.pl">
+                                <span class="fa-stack fa-x3">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span><br/>
+                                dziewczyny@fizyka.umk.pl
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-md-4" style="text-align: center;">
+                            <a href="https://www.facebook.com/Fizyka.UMK/?fref=ts">
+                                <span class="fa-stack fa-x3">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span><br/>
+                                Facebook
+                            </a>
+                        </div>
                     </div>
-                    {% endblock %}
-                    <div class="col-xs-12 col-md-4" style="text-align: center;">
-                        <address>
-                            Instytut Fizyki<br/>
-                            ul. Grudziądzka 5/7<br/>
-                            87 - 100 Toruń
-                        </address>
-                    </div>
-                    <div class="col-xs-12 col-md-4" style="text-align: center;">
-                        <a href="mailto:dziewczyny@fizyka.umk.pl">
-                            <span class="fa-stack fa-x3">
-                                <i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
-                            </span><br/>
-                            dziewczyny@fizyka.umk.pl
-                        </a>
-                    </div>
-                    <div class="col-xs-12 col-md-4" style="text-align: center;">
-                        <a href="https://www.facebook.com/Fizyka.UMK/?fref=ts">
-                            <span class="fa-stack fa-x3">
-                                <i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span><br/>
-                            Facebook
-                        </a>
+                </div>
+                <div style="border-top: 1px solid #535252;">
+                    <div class="container" style="">
+                        <div class="row" style="text-align: right;">
+                            <a style="font-variant: small-caps; font-size: 1em;" href="http://www.is.umk.pl/">
+                                Katedra Informatyki Stosowanej
+                            </a><br/>
+                            <a style="font-size: 1em;" href="https://github.com/IS-UMK/kisReg">
+                                źródło możesz podejżeć na <i style="font-size: 1.3em;" class="fa fa-github"></i> GitHub
+                            </a><br/>
+                                <i style="font-size: 1em;">
+                                    bcelmer(at)is.umk.pl
+                                </i>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div style="border-top: 1px solid #535252;">
-                <div class="container" style="">
-                    <div class="row" style="text-align: right;">
-                        <a style="font-variant: small-caps; font-size: 1em;" href="http://www.is.umk.pl/">
-                            Katedra Informatyki Stosowanej
-                        </a><br/>
-                        <a style="font-size: 1em;" href="https://github.com/IS-UMK/kisReg">
-                            źródło możesz podejżeć na <i style="font-size: 1.3em;" class="fa fa-github"></i> GitHub
-                        </a><br/>
-                            <i style="font-size: 1em;">
-                                bcelmer(at)is.umk.pl
-                            </i>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endblock %}
         {% block javascripts %}
             {{
                 tinymce_init({

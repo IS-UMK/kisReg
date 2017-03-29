@@ -65,6 +65,37 @@ class DefaultController extends Controller
     }
     /**
      * @Template()
+     * @Route("/admin/quiz.html",name="quiz")
+     */
+    public function quizAction(){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('kisRegBundle:Pytanie');
+
+        $question = $repo->findNew();
+        if($question){
+            $question->setAktywne(false);
+            $em->flush($question);
+        }
+        return ['pytanie'=>$question];
+    }
+    /**
+     * @Template()
+     * @Route("/admin/quizStart.html",name="quizStart")
+     */
+    public function quizStartAction(){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('kisRegBundle:Pytanie');
+        $ip = 0;
+        foreach($repo->findAll() as $question){
+            $question->setAktywne(true);
+            $question->setKolejnosc(rand());
+            $ip++;
+        }
+        $em->flush();
+        return ['iloscPytan'=>$ip];
+    }
+    /**
+     * @Template()
      * @Route("/zajecia-{id}.html",name="zajecia")
      */
     public function zajeciaAction(Zajecia $zajecia){

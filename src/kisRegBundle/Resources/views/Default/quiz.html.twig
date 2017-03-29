@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+
+{% block bodyTopMenu %}{% endblock %}
+{% block bodyTop %}{% endblock %}
+{% block bodyFooter %}{% endblock %}
+
+{% block bodyAttr %}style="background-color: #747474;"{% endblock %}
+
+{% block body %}
+    {% if pytanie %}
+        <div id='question' style="height: 140px;text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">
+            <h3>{{ pytanie.tresc|raw }}</h3>
+        </div>
+        <div class="col-xs-6">
+            <h4 anwser="A" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzA|raw }}</h4>
+        </div>
+        <div class="col-xs-6">
+            <h4 anwser="B" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzB|raw }}</h4>
+        </div>
+        <div class="col-xs-6">
+            <h4 anwser="C" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzC|raw }}</h4>
+        </div>
+        <div class="col-xs-6">
+            <h4 anwser="D" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzD|raw }}</h4>
+        </div>
+
+        <div id="confirm" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#772727; color: #aaaaaa;">
+            <h3>Na pewno zaznaczyć <b><span id="wybranaObpowiedz">X</span></b>?</h3>
+            <div class="col-xs-6">
+                <div style="width: 80%;" id="checkAnswer" class="btn btn-success">TAK</div>
+            </div>
+            <div class="col-xs-6">
+                <div onclick="$(this).parent().parent().fadeOut();" style="width: 80%;" class="btn btn-danger">NIE</div>
+            </div>
+        </div>
+
+        <div id="done" style="border: 2px solid black; z-index: 999; display: none; position: fixed; bottom: 20px; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
+            <h3 id="result"></h3>
+            <div class="col-xs-6">
+            </div>
+            <div class="col-xs-6">
+                <div onclick="location.reload()" style="width: 80%;" class="btn btn-info">Następne</div>
+            </div>
+        </div>
+
+        <script>
+            $().ready(function(){
+                $('*[anwser]').click(function(){
+                    $('#confirm').fadeIn();
+                    $('#wybranaObpowiedz').html($(this).attr('anwser'));
+                });
+                $('#checkAnswer').click(function(){
+                    var a=$('#wybranaObpowiedz').html();
+                    var c="{{pytanie.poprawnaOdpowiedz|upper}}";
+                    $('#confirm').fadeOut();
+                    setTimeout(function(){
+                        $('*[anwser='+a+']').css({'background':'rgb(222,192,63)','color':'black'});
+                    },200);
+                    setTimeout(function(){
+                        $('#done').slideDown();
+                    },2500);
+                    if(a==c){
+                        $('#result').html('Poprawnie!');
+                        setTimeout(function(){
+                            $('*[anwser='+a+']').css({'background':'rgb(63,255,63)','color':'black'});
+                            //$('#done').css({'border-color':'rgb(32,128,32)'});
+                        },2500);
+                    } else{
+                        $('#result').html('Niestety błędnie!');
+                        setTimeout(function(){
+                            $('*[anwser='+c+']').css({'background':'rgb(63,255,63)','color':'black'});
+                            $('*[anwser='+a+']').css({'background':'rgb(255,63,63)','color':'black'});
+                            //$('#done').css({'border-color':'rgb(128,32,32)'});
+                        },2500);
+                    }
+                });
+            });
+        </script>
+    {% else %}
+        Baza pytań pusta -
+        <a class="btn btn-info" href="{{path('quizStart')}}">
+            <i class="fa fa-question-circle" aria-hidden="true"></i> Tasowanie pytań
+        </a>
+    {% endif %}
+{% endblock %}

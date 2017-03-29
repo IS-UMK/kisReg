@@ -10,4 +10,15 @@ namespace kisRegBundle\Repository;
  */
 class PytanieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findNew(){
+        $em = $this->getEntityManager();
+        try {
+            $one = $em->
+                createQuery('SELECT q FROM kisRegBundle:Pytanie q WHERE q.aktywne = 1 ORDER BY q.kolejnosc')->
+                getOneOrNullResult();
+        } catch (Exception $e) {
+            return false;
+        }
+        return $one;
+    }
 }
