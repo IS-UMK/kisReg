@@ -19,8 +19,12 @@
 
 {% block body %}
     <h2>Rejestracja</h2>
-    <div style="font-size: large; margin: 10px; padding: 5px;" class="label label-warning col-xs-12">
-        Po wypełnieniu formularza na podany adres zostanie wysłany link potwierdzający.<br/>Dopiero po jego kliknięciu zajęcia zostaną zarezerwowane!
-    </div>
-    {{ form(form) }}
+    {% if rejestracja_zamknieta is defined %}
+        {{rejestracja_zamknieta|raw}}
+    {% else %}
+        <div style="font-size: large; margin: 10px; padding: 5px;" class="label label-warning col-xs-12">
+            Po wypełnieniu formularza na podany adres zostanie wysłany link potwierdzający.<br/>Dopiero po jego kliknięciu zajęcia zostaną zarezerwowane!
+        </div>
+        {{ form(form) }}
+    {% endif %}
 {% endblock %}

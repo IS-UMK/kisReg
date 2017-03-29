@@ -122,6 +122,13 @@ class DefaultController extends Controller
      * @Template()
      */
     public function rejestracjaAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $isOut = $em->getRepository('kisRegBundle:Strona')->findOneByNazwa('rejestracja_zamknieta');
+        if($isOut){
+            return $this->loadStrony([
+                'rejestracja_zamknieta'
+            ]);
+        }
         $grupa = new Grupa();
         $wszystkieZajecia = $this->getDoctrine()->getManager()->getRepository('kisRegBundle:Zajecia')->findAll();
         foreach($wszystkieZajecia as $zajecia){
