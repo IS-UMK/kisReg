@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyTopMenu %}{% endblock %}
+{% block body %}
+    <h1>Pytanie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pytanie.id }}</td>
+            </tr>
+            <tr>
+                <th>Tresc</th>
+                <td>{{ pytanie.tresc }}</td>
+            </tr>
+            <tr>
+                <th>Odpowiedza</th>
+                <td>{{ pytanie.odpowiedzA }}</td>
+            </tr>
+            <tr>
+                <th>Odpowiedzb</th>
+                <td>{{ pytanie.odpowiedzB }}</td>
+            </tr>
+            <tr>
+                <th>Odpowiedzc</th>
+                <td>{{ pytanie.odpowiedzC }}</td>
+            </tr>
+            <tr>
+                <th>Odpowiedzd</th>
+                <td>{{ pytanie.odpowiedzD }}</td>
+            </tr>
+            <tr>
+                <th>Poprawnaodpowiedz</th>
+                <td>{{ pytanie.poprawnaOdpowiedz }}</td>
+            </tr>
+            <tr>
+                <th>Kolejnosc</th>
+                <td>{{ pytanie.kolejnosc }}</td>
+            </tr>
+            <tr>
+                <th>Aktywne</th>
+                <td>{% if pytanie.aktywne %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_pytanie_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_pytanie_edit', { 'id': pytanie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
