@@ -9,44 +9,47 @@
 
 {% block body %}
     {% if pytanie %}
-        <div id='question' style="height: 140px;text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">
-            <h3>{{ pytanie.tresc|raw }}</h3>
-        </div>
-        <div class="col-xs-6">
-            <h4 anwser="A" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzA|raw }}</h4>
-        </div>
-        <div class="col-xs-6">
-            <h4 anwser="B" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzB|raw }}</h4>
-        </div>
-        <div class="col-xs-6">
-            <h4 anwser="C" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzC|raw }}</h4>
-        </div>
-        <div class="col-xs-6">
-            <h4 anwser="D" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzD|raw }}</h4>
-        </div>
+        <div id="qWrapper" style="display:none;">
+            <div id='question' style="height: 140px;text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">
+                <h3>{{ pytanie.tresc|raw }}</h3>
+            </div>
+            <div class="col-xs-6">
+                <h4 anwser="A" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzA|raw }}</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4 anwser="B" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzB|raw }}</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4 anwser="C" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzC|raw }}</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4 anwser="D" style="cursor: pointer; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa; ">{{ pytanie.odpowiedzD|raw }}</h4>
+            </div>
 
-        <div id="confirm" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#772727; color: #aaaaaa;">
-            <h3>Na pewno zaznaczyć <b><span id="wybranaObpowiedz">X</span></b>?</h3>
-            <div class="col-xs-6">
-                <div style="width: 80%;" id="checkAnswer" class="btn btn-success">TAK</div>
+            <div id="confirm" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#772727; color: #aaaaaa;">
+                <h3>Na pewno zaznaczyć <b><span id="wybranaObpowiedz">X</span></b>?</h3>
+                <div class="col-xs-6">
+                    <div style="width: 80%;" id="checkAnswer" class="btn btn-success">TAK</div>
+                </div>
+                <div class="col-xs-6">
+                    <div onclick="$(this).parent().parent().fadeOut();" style="width: 80%;" class="btn btn-danger">NIE</div>
+                </div>
             </div>
-            <div class="col-xs-6">
-                <div onclick="$(this).parent().parent().fadeOut();" style="width: 80%;" class="btn btn-danger">NIE</div>
-            </div>
-        </div>
 
-        <div id="done" style="border: 2px solid black; z-index: 999; display: none; position: fixed; bottom: 20px; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
-            <h3 id="result"></h3>
-            <div class="col-xs-6">
+            <div id="done" style="border: 2px solid black; z-index: 999; display: none; position: fixed; bottom: 20px; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
+                <h3 id="result"></h3>
+                <div class="col-xs-6">
+                </div>
+                <div class="col-xs-6">
+                    <div onclick="$(this).parent().parent().fadeOut();$('#qWrapper').slideUp('normal',function(){location.reload();});" style="width: 80%;" class="btn btn-info">Następne</div>
+                </div>
             </div>
-            <div class="col-xs-6">
-                <div onclick="location.reload()" style="width: 80%;" class="btn btn-info">Następne</div>
-            </div>
+            <hr />
+            Pozostało pytań: {{pozostaloPytan}}
         </div>
-        <hr />
-        Pozostało pytań: {{pozostaloPytan}}
         <script>
             $().ready(function(){
+                $('#qWrapper').slideDown();
                 $('*[anwser]').click(function(){
                     $('#confirm').fadeIn();
                     $('#wybranaObpowiedz').html($(this).attr('anwser'));
