@@ -76,7 +76,9 @@ class DefaultController extends Controller
             $question->setAktywne(false);
             $em->flush($question);
         }
-        return ['pytanie'=>$question];
+
+
+        return ['pytanie'=>$question,'pozostaloPytan'=>$repo->countActive()];
     }
     /**
      * @Template()

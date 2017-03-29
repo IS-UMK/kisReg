@@ -15,7 +15,19 @@ class PytanieRepository extends \Doctrine\ORM\EntityRepository
         try {
             $one = $em->
                 createQuery('SELECT q FROM kisRegBundle:Pytanie q WHERE q.aktywne = 1 ORDER BY q.kolejnosc')->
+                setMaxResults(1)->
                 getOneOrNullResult();
+        } catch (Exception $e) {
+            return false;
+        }
+        return $one;
+    }
+    public function countActive(){
+        $em = $this->getEntityManager();
+        try {
+            $one = $em->
+                createQuery('SELECT count(q.id) FROM kisRegBundle:Pytanie q WHERE q.aktywne = 1')->
+                getSingleScalarResult();
         } catch (Exception $e) {
             return false;
         }

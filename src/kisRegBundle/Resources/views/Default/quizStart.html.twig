@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
+
 {% block bodyTopMenu %}{% endblock %}
+{% block bodyTop %}{% endblock %}
+{% block bodyFooter %}{% endblock %}
+
+{% block bodyAttr %}style="background-color: #747474;"{% endblock %}
+
 {% block body %}
     Lista pytań przetasowana! Pytania odświerzone!
     <a class="btn btn-info" href="{{path('quiz')}}">
