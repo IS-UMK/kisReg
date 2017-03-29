@@ -11,6 +11,9 @@
     {% if pytanie %}
         <div id="qWrapper" style="display:none; position: relative;">
             <div style="height: 3.8em; margin-bottom: 7px;padding: 7px; border-radius: 12px; background:#272727; color: #aaaaaa;">
+                <div style="font-size: 2em; color: rgb(255,128,128);" class="col-xs-1">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </div>
                 <div id="reset" class="col-xs-3 btn btn-default" onclick="$('#punkty').html(0);$.cookie('punkty',0);$('#pytanie').html(1);$.cookie('pytanie',1);$.removeCookie('fiftyFifty');$.removeCookie('call');$.removeCookie('peaople');$('#fiftyFifty').fadeTo(0,1);$('#call').fadeTo(0,1);$('#peaople').fadeTo(0,1);">
                     Punkty/Pytanie: <span id="punkty">0</span>/<span id="pytanie">0</span>
                 </div>
@@ -58,7 +61,7 @@
                 <h4>{{pytanie.id}}</h4>
             </div>
 
-            <div onclick="$('#reset').click();$(this).slideUp();$('#qWrapper').slideUp('normal',function(){location.reload();});" id="final" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px;  background:#272777; color:#aaaaaa;">
+            <div onclick="$('#done').fadeOut();$('#reset').click();$(this).slideUp();$('#qWrapper').slideUp('normal',function(){location.reload();});" id="final" style="display: none; position: absolute; top:50%; left:50%; margin-left: -300px; margin-top: -50px; width: 600px; text-align: center; padding: 7px; border-radius: 12px;  background:#272777; color:#aaaaaa;">
                 <h2>Koniec gry!</h2>
                 <h4>Ilość punktów: <span id="finalScore">X</span></h4>
             </div>
@@ -68,7 +71,12 @@
                 <div class="col-xs-6">
                 </div>
                 <div class="col-xs-6">
-                    <div onclick="$(this).parent().parent().fadeOut();$('#qWrapper').slideUp('normal',function(){location.reload();});" style="width: 80%;" class="btn btn-info">Następne</div>
+                    <div onclick="if(parseInt($.cookie('pytanie'))>5){
+                        $('#final').slideDown();
+                    } else {
+                        $(this).parent().parent().fadeOut();
+                        $('#qWrapper').slideUp('normal',function(){location.reload();});
+                    }" style="width: 80%;" class="btn btn-info">Następne</div>
                 </div>
             </div>
             <hr />
@@ -122,11 +130,7 @@
                     },200);
                     setTimeout(function(){
                         $.cookie('pytanie',parseInt($.cookie('pytanie')) + 1);
-                        if(parseInt($.cookie('pytanie'))>5){
-                            $('#final').slideDown();
-                        } else {
-                            $('#done').slideDown();
-                        }
+                        $('#done').slideDown();
                     },2500);
                     if(a==c){
                         $('#result').html('Poprawnie!');
